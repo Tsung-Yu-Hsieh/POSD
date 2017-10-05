@@ -2,16 +2,20 @@
 #include "atom.h"
 #include "variable.h"
 #include <sstream>
-
+#include <iostream>
+using namespace std;
 stringstream ss;
 
 Number::Number(){
-  _value = "1";
+  _value = "0";
 }
 Number::Number(int a){
   _ivalue = a;
   ss << a;
   ss >> _value;
+}
+Number::Number(string s){
+  _symbol = s;
 }
 
 
@@ -53,5 +57,5 @@ string Number::value(){
 }
 
 string Number::symbol(){
-  return _value;
+  return _symbol;
 }
