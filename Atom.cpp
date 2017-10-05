@@ -23,6 +23,7 @@ bool Atom::match(Number n1){
 
 bool Atom::match(Variable& v){
   v.setValue(_symbol);
+  v.setBValue();
   return true;
 }
 

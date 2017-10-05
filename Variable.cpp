@@ -53,3 +53,11 @@ string Variable::svalue(){
 string Variable::symbolv(){
   return _symbol;
 }
+
+int Variable::a(){
+  return _a;
+}
+
+int Variable::setBValue(){
+  _a = 1;
+}

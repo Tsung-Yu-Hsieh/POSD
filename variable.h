@@ -14,9 +14,11 @@ class Variable{
     string const _symbol;
     bool match(Atom a);
     bool match(Number& n);
+    int a();
     int value();
     void setValue(int a);
     void setValue(string a);
+    int setBValue();
     string svalue();
     string symbolv();
 
@@ -25,6 +27,7 @@ class Variable{
     string _svalue="";
     bool _assignable = true;
     bool _assignable1 = true;
+    int _a = 0;
 };
 
 #endif

@@ -32,7 +32,7 @@ bool Number::match(Atom& a){
 
 bool Number::match(Variable& V){
  bool _ref = _assignable;
-   if(V.svalue() == "tom"){
+   if(V.a()== 1){
      return false;
    }
    if(_assignable){
