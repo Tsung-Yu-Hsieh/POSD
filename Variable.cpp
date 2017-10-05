@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Variable::Variable(string s){
-  _symbol = s;
-}
+//Variable::Variable(string s){
+  //_symbol = s;
+//}
 
 void Variable::setValue(int a){
   _value = a;
