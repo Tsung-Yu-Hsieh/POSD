@@ -43,7 +43,7 @@ TEST (Number, matchSuccessToVar) {
   Number num(25);
   Variable X("X");
   ASSERT_TRUE(num.match(X));
-  //ASSERT_EQ(25,X.value());
+
 }
 
 //?- tom=25.
@@ -62,7 +62,7 @@ TEST (Atom, matchSuccessToVar) {
   Variable X("X");
   tom.match(X);
   ASSERT_EQ(X.svalue(),"tom");
-  //cout << X.symbolv() << " = " << tom.symbol() << endl;
+
 }
 
 // ?- X=tom, tom=X.
@@ -72,7 +72,7 @@ TEST (Atom, matchSuccessToVarInstantedToDiffConstant) {
   Atom tom("tom");
   ASSERT_TRUE(X.match(tom));
   ASSERT_TRUE(tom.match(X));
-  //cout << X.symbolv() << " = " << tom.symbol() << endl;
+
 }
 
 // ?- X=jerry, tom=X.
@@ -92,7 +92,6 @@ TEST (Variable, matchSuccessToNumber) {
   Variable X("X");
   Number num(5);
   ASSERT_TRUE(X.match(num));
-//  cout << X.symbolv() << " = " << num.ivalue() << endl;
 }
 
 // ?- X=25, X= 100.

@@ -2,7 +2,7 @@
 #include "atom.h"
 #include "variable.h"
 #include <sstream>
-#include <iostream>
+
 using namespace std;
 stringstream ss;
 
@@ -15,10 +15,6 @@ Number::Number(int a){
   ss >> _value;
   _symbol = ss.str();
 }
-Number::Number(string s){
-  _symbol = s;
-}
-
 
 bool Number::match(Number a){
   if(_ivalue == a._ivalue){
@@ -43,10 +39,6 @@ bool Number::match(Variable& V){
        _assignable = false;
      }
    return _ref;
-}
-
-int Number::changeValue(int a){
-  _value = a;
 }
 
 int Number::ivalue(){
