@@ -89,7 +89,7 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
 
 // ?- X = 5.
 // X = 5.
-TEST (Var, matchSuccessToNumber) {
+TEST (Variable, matchSuccessToNumber) {
   Variable X("X");
   Number num(5);
   ASSERT_TRUE(X.match(num));
@@ -98,7 +98,7 @@ TEST (Var, matchSuccessToNumber) {
 
 // ?- X=25, X= 100.
 // false.
-TEST (Var, matchFailureToTwoDiffNumbers) {
+TEST (Variable, matchFailureToTwoDiffNumbers) {
   Variable X("X");
   Number num(25);
   Number num1(100);
@@ -108,7 +108,7 @@ TEST (Var, matchFailureToTwoDiffNumbers) {
 
 // ?- X=tom, X= 25.
 // false.
-TEST (Var, matchSuccessToAtomThenFailureToNumber) {
+TEST (Variable, matchSuccessToAtomThenFailureToNumber) {
   Variable X("X");
   Atom tom("tom");
   Number num(25);
@@ -117,7 +117,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber) {
 }
 //?- tom=X, 25=X.
 //false.
-TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
+TEST (Variable, matchSuccessToAtomThenFailureToNumber2) {
   Atom tom("tom");
   Variable X("X");
   Number num(25);
@@ -126,7 +126,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
 }
 //?- X=tom, X=tom.
 //true.
-TEST(Var, reAssignTheSameAtom){
+TEST(Variable, reAssignTheSameAtom){
   Variable X("X");
   Atom tom("tom");
   ASSERT_TRUE(X.match(tom));
