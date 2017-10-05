@@ -1,14 +1,13 @@
 #ifndef UTTERM_H
 #define UTTERM_H
-#include "number.h"
-#include "atom.h"
 #include "variable.h"
-
+#include "atom.h"
+#include "number.h"
 #include <iostream>
 using namespace std;
 
 //test Number.value()
-TEST (Number,ctor) {
+TEST (Number, ctor) {
   Number Number(1);
   ASSERT_EQ("1",Number.value());
 }
