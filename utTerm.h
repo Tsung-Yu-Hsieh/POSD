@@ -13,8 +13,8 @@ TEST (Number, ctor) {
 }
 //test Number.symbol()
 TEST (Number, symbol) {
-  Number Number("1");
-  ASSERT_EQ("1",Number.symbol());
+  Number num(1);
+  ASSERT_EQ("1",num.symbol());
 }
 //?- 25=25.
 //true.
@@ -42,7 +42,7 @@ TEST (Number, matchFailureDiffConstant) {
 TEST (Number, matchSuccessToVar) {
   Number num(25);
   Variable X("X");
-  EXPECT_TRUE(num.match(X));
+  ASSERT_TRUE(num.match(X));
   //ASSERT_EQ(25,X.value());
 }
 

@@ -24,8 +24,8 @@ class Number {
 
   private:
     int _ivalue;
-    string _value;
     string _symbol;
+    string _value;
     bool _status = true;
     bool _assignable = true;
 };

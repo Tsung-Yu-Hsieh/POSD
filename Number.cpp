@@ -13,6 +13,7 @@ Number::Number(int a){
   _ivalue = a;
   ss << a;
   ss >> _value;
+  _symbol = ss.str();
 }
 Number::Number(string s){
   _symbol = s;
