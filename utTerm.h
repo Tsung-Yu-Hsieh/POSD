@@ -61,7 +61,8 @@ TEST (Atom, matchFailureDiffConstant) {
 TEST (Atom, matchSuccessToVar) {
   Atom tom("tom");
   Variable X("X");
-  ASSERT_TRUE(tom.match(X));
+  tom.match(X);
+  ASSERT_EQ(X.svalue(),"tom");
   //cout << X.symbolv() << " = " << tom.symbol() << endl;
 }
 
