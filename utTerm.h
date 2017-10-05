@@ -43,7 +43,7 @@ TEST (Number, matchFailureDiffConstant) {
 TEST (Number, matchSuccessToVar) {
   Number num(25);
   Variable X("X");
-  ASSERT_TRUE(num.match(X));
+  EXPECT_TRUE(num.match(X));
   //ASSERT_EQ(25,X.value());
 }
 
@@ -51,9 +51,9 @@ TEST (Number, matchSuccessToVar) {
 //false.
 
 TEST (Atom, matchFailureDiffConstant) {
-  //Atom tom("tom");
-//  Number num(25);
-  ASSERT_FALSE(false);
+  Atom tom("tom");
+  Number num(25);
+  ASSERT_FALSE(tom.match(num));
 }
 
 // ?- tom = X.
