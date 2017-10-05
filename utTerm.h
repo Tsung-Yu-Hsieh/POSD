@@ -3,8 +3,8 @@
 #include "variable.h"
 #include "atom.h"
 #include "number.h"
-#include <iostream>
-using namespace std;
+
+
 
 //test Number.value()
 TEST (Number, ctor) {
