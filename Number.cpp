@@ -6,16 +6,14 @@
 stringstream ss;
 
 Number::Number(){
-  _value = "0";
+  _value = "1";
 }
 Number::Number(int a){
   _ivalue = a;
   ss << a;
   ss >> _value;
 }
-Number::Number(string s){
-  _symbol = s;
-}
+
 
 bool Number::match(Number a){
   if(_ivalue == a._ivalue){
@@ -55,5 +53,5 @@ string Number::value(){
 }
 
 string Number::symbol(){
-  return _symbol;
+  return _value;
 }
