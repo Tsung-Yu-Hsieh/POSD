@@ -13,7 +13,7 @@ class Variable{
     Variable(string s);
 
     bool match(Atom a);
-    bool match(Number* n);
+    bool match(Number& n);
     int value();
     void setValue(int a);
     void setValue(string a);

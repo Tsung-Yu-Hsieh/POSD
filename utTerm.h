@@ -36,17 +36,15 @@ TEST (Number, matchFailureDiffValue) {
 TEST (Number, matchFailureDiffConstant) {
   Number num(25);
   Atom tom("tom");
-  ASSERT_FALSE(num.match(&tom));
+  ASSERT_FALSE(num.match(tom));
 }
 //?- 25=X.
 //true.
 TEST (Number, matchSuccessToVar) {
   Number num(25);
   Variable X("X");
-  ASSERT_TRUE(num.match(&X));
+  ASSERT_TRUE(num.match(X));
   ASSERT_EQ(25,X.value());
-
-
 }
 
 //?- tom=25.
@@ -63,7 +61,7 @@ TEST (Atom, matchFailureDiffConstant) {
 TEST (Atom, matchSuccessToVar) {
   Atom tom("tom");
   Variable X("X");
-  ASSERT_TRUE(tom.match(&X));
+  ASSERT_TRUE(tom.match(X));
   cout << X.symbolv() << " = " << tom.symbol() << endl;
 }
 
@@ -73,7 +71,7 @@ TEST (Atom, matchSuccessToVarInstantedToDiffConstant) {
   Variable X("X");
   Atom tom("tom");
   ASSERT_TRUE(X.match(tom));
-  ASSERT_TRUE(tom.match(&X));
+  ASSERT_TRUE(tom.match(X));
   cout << X.symbolv() << " = " << tom.symbol() << endl;
 }
 
@@ -85,7 +83,7 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
   Atom tom("tom");
   ASSERT_TRUE(X.match(jerry));
   ASSERT_EQ("jerry",X.svalue());
-  ASSERT_TRUE(tom.match(&X));
+  ASSERT_TRUE(tom.match(X));
 }
 
 // ?- X = 5.
@@ -93,7 +91,7 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
 TEST (Var, matchSuccessToNumber) {
   Variable X("X");
   Number num(5);
-  ASSERT_TRUE(X.match(&num));
+  ASSERT_TRUE(X.match(num));
   cout << X.symbolv() << " = " << num.ivalue() << endl;
 }
 
@@ -103,8 +101,8 @@ TEST (Var, matchFailureToTwoDiffNumbers) {
   Variable X("X");
   Number num(25);
   Number num1(100);
-  ASSERT_TRUE(X.match(&num));
-  ASSERT_FALSE(X.match(&num1));
+  ASSERT_TRUE(X.match(num));
+  ASSERT_FALSE(X.match(num1));
 }
 
 // ?- X=tom, X= 25.
@@ -114,7 +112,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber) {
   Atom tom("tom");
   Number num(25);
   X.match(tom);
-  ASSERT_FALSE(X.match(&num));
+  ASSERT_FALSE(X.match(num));
 }
 //?- tom=X, 25=X.
 //false.
@@ -122,8 +120,8 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
   Atom tom("tom");
   Variable X("X");
   Number num(25);
-  tom.match(&X);
-  ASSERT_FALSE(num.match(&X));
+  tom.match(X);
+  ASSERT_FALSE(num.match(X));
 }
 //?- X=tom, X=tom.
 //true.

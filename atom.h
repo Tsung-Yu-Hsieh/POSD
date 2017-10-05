@@ -15,8 +15,8 @@ class Atom{
     string value();
 
     bool match(Number n1);
-    bool match(Variable* v);
-    string result(Variable* r);
+    bool match(Variable& v);
+    string result(Variable& r);
  private:
    string _value;
    string _symbol;

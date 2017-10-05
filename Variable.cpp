@@ -28,13 +28,13 @@ bool Variable::match(Atom a){
     return _ref;
 }
 
-bool Variable::match(Number* n){
+bool Variable::match(Number& n){
   bool _ref = _assignable1;
     if(_assignable == false){
       return false;
     }
     if(_assignable1){
-    _value = n->ivalue();
+    _value = n.ivalue();
     _assignable1 = false;
     return _ref;
     }

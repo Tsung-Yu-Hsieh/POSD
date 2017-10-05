@@ -14,8 +14,8 @@ class Number {
     Number(string s);
 
     bool match(Number a);
-    bool match(Atom* a);
-    bool match(Variable* V);
+    bool match(Atom& a);
+    bool match(Variable& V);
 
     int changeValue(int a);
     int ivalue();

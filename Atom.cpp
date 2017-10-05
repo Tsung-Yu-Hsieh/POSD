@@ -21,11 +21,11 @@ bool Atom::match(Number n1){
   return false;
 }
 
-bool Atom::match(Variable* v){
-  v->setValue(_symbol);
+bool Atom::match(Variable& v){
+  v.setValue(_symbol);
   return true;
 }
 
-string Atom::result(Variable* r){
-  cout << _symbol << " = "<< r->value() << endl;
+string Atom::result(Variable& r){
+  cout << _symbol << " = "<< r.value() << endl;
 }

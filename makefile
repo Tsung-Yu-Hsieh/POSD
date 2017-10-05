@@ -1,5 +1,3 @@
-INC_DIR = include
-
 all: hw2
 
 hw2: mainTerm.o Atom.o Number.o Variable.o

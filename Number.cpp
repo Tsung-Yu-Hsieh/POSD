@@ -26,17 +26,17 @@ bool Number::match(Number a){
    }
 }
 
-bool Number::match(Atom* a){
+bool Number::match(Atom& a){
   return false;
 }
 
-bool Number::match(Variable* V){
+bool Number::match(Variable& V){
  bool _ref = _assignable;
-   if(V->svalue() != ""){
+   if(V.svalue() != ""){
      return false;
    }
    if(_assignable){
-       V->setValue(_ivalue);
+       V.setValue(_ivalue);
        _assignable = false;
      }
    return _ref;
