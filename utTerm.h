@@ -6,6 +6,7 @@
 
 #include <iostream>
 using namespace std;
+
 //test Number.value()
 TEST (Number,ctor) {
   Number Number(1);

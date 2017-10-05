@@ -10,8 +10,8 @@ class Number;
 class Variable{
   public:
 
-    Variable(string s);
-
+    Variable(string s):_symbol(s){}
+    string const _symbol;
     bool match(Atom a);
     bool match(Number& n);
     int value();
@@ -23,7 +23,6 @@ class Variable{
   private:
     int _value;
     string _svalue="";
-    string  _symbol;
     bool _assignable = true;
     bool _assignable1 = true;
 };
