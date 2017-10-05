@@ -1,6 +1,7 @@
 all: hw2
 
 hw2: mainTerm.o Atom.o Number.o Variable.o
+	
 ifeq (${OS}, Windows_NT)
 	g++ -o hw2 mainTerm.o Atom.o Number.o Variable.o -lgtest
 else
@@ -8,13 +9,13 @@ else
 endif
 
 mainTerm.o: mainTerm.cpp utTerm.h
-	g++ -std=gnu++0x -c mainTerm.cpp
+				g++ -std=gnu++0x -c mainTerm.cpp
 Atom.o: atom.h Atom.cpp
-	g++ -std=gnu++0x -c Atom.cpp
+			g++ -std=gnu++0x -c Atom.cpp
 Number.o: number.h Number.cpp
-	g++ -std=gnu++0x -c Number.cpp
+			g++ -std=gnu++0x -c Number.cpp
 Variable.o: variable.h Variable.cpp
-	g++ -std=gnu++0x -c Variable.cpp
+			g++ -std=gnu++0x -c Variable.cpp
 
 clean:
 ifeq (${OS}, Windows_NT)
