@@ -59,4 +59,5 @@ int Variable::a(){
 
 int Variable::setBValue(){
   _a = 1;
+  return 1;
 }
