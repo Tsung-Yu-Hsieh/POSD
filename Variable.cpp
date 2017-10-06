@@ -57,7 +57,6 @@ int Variable::a(){
   return _a;
 }
 
-int Variable::setBValue(){
+void Variable::setBValue(){
   _a = 1;
-  return 1;
 }

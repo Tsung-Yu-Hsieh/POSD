@@ -18,7 +18,7 @@ class Variable{
     int value();
     void setValue(int a);
     void setValue(string a);
-    int setBValue();
+    void setBValue();
     string svalue();
     string symbolv();
 

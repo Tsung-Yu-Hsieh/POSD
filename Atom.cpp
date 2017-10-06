@@ -35,6 +35,6 @@ bool Atom::match(Variable& v){
   }
 }
 
-// string Atom::result(Variable& r){
-//   cout << _symbol << " = "<< r.value() << endl;
-// }
+string Atom::result(Variable& r){
+  cout << _symbol << " = "<< r.value() << endl;
+}
