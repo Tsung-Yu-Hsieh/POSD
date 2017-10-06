@@ -1,7 +1,7 @@
 #ifndef ATOM_H
 #define ATOM_H
 #include <string>
-using namespace std;
+
 
 using std::string;
 class Number;
@@ -9,8 +9,8 @@ class Variable;
 
 class Atom{
   public:
-    Atom();
-    Atom (string s);
+    Atom (string s):_symbol(s){}
+
     string symbol();
     string value();
 

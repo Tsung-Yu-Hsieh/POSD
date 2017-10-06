@@ -6,14 +6,11 @@
 using namespace std;
 stringstream ss;
 
-Number::Number(){
-  _value = "0";
-}
 Number::Number(int a){
   _ivalue = a;
   ss << a;
   ss >> _value;
-  _symbol = ss.str();
+  
 }
 Number::Number(string s){
   _symbol = s;
@@ -27,11 +24,11 @@ bool Number::match(Number a){
    }
 }
 
-bool Number::match(Atom& a){
+bool Number::match(Atom a){
   return false;
 }
 
-bool Number::match(Variable& V){
+bool Number::match(Variable V){
  bool _ref = _assignable;
    if(V.a()== 1){
      return false;

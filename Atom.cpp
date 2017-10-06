@@ -2,13 +2,7 @@
 #include "variable.h"
 #include "number.h"
 
-Atom::Atom(){
-   _symbol = "";
-}
-
-Atom::Atom(string s){
-   _symbol = s;
-}
+using namespace std;
 
 string Atom::symbol(){
   return _symbol;
@@ -33,4 +27,5 @@ bool Atom::match(Variable& v){
   else{
     return false;
   }
+  
 }

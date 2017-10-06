@@ -11,7 +11,7 @@ class Variable{
   public:
 
     Variable(string s):_symbol(s){}
-    string const _symbol;
+    string  _symbol;
     bool match(Atom a);
     bool match(Number& n);
     int a();

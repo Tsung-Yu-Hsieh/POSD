@@ -9,12 +9,11 @@ class Variable;
 
 class Number {
   public:
-    Number();
     Number(int a);
     Number(string s);
     bool match(Number a);
-    bool match(Atom& a);
-    bool match(Variable& V);
+    bool match(Atom a);
+    bool match(Variable V);
 
     int ivalue();
     string value();
