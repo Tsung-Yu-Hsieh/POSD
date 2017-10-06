@@ -1,15 +1,15 @@
 all: hw2
 
-hw2: mainTerm.o Atom.o Number.o Variable.o
+hw2: MainTerm.o Atom.o Number.o Variable.o
 
 ifeq (${OS}, Windows_NT)
-	g++ -o hw2 mainTerm.o Atom.o Number.o Variable.o -lgtest
+	g++ -o hw2 MainTerm.o Atom.o Number.o Variable.o -lgtest
 else
-	g++ -o hw2 mainTerm.o Atom.o Number.o Variable.o -lgtest -lpthread
+	g++ -o hw2 MainTerm.o Atom.o Number.o Variable.o -lgtest -lpthread
 endif
 
-mainTerm.o: mainTerm.cpp utTerm.h
-			g++ -std=gnu++0x -c mainTerm.cpp
+MainTerm.o: MainTerm.cpp utTerm.h
+			g++ -std=gnu++0x -c MainTerm.cpp
 Atom.o: atom.h Atom.cpp
 			g++ -std=gnu++0x -c Atom.cpp
 Number.o: number.h Number.cpp

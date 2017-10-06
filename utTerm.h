@@ -5,8 +5,6 @@
 #include "atom.h"
 #include "number.h"
 
-
-
 //test Number.value()
 TEST (Number, ctor) {
   Number Number(1);
