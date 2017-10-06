@@ -30,11 +30,8 @@ bool Variable::match(Number& n){
     if(_assignable1){
     _value = n.ivalue();
     _assignable1 = false;
-    return _ref;
     }
-   else{
     return _ref;
-    }
 }
 
 int Variable::value(){

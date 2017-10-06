@@ -17,15 +17,17 @@ bool Atom::match(Number n1){
 
 bool Atom::match(Variable& v){
   if(v.svalue() == ""){
-  v.setValue(_symbol);
-  v.setBValue();
-  return true;
+   v.setValue(_symbol);
+   v.setBValue();
+   return true;
   }
-  else if(v.svalue() == _symbol){
-    return true;
+  else {
+    if(_symbol == v.svalue()){
+    _assignable=true;
   }
   else{
-    return false;
+    _assignable=false;
   }
-  
+  return _assignable;
+ }
 }

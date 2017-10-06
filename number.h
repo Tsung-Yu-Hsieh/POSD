@@ -4,13 +4,17 @@
 
 using std::string;
 
-class Atom;
+
 class Variable;
+class Atom;
 
 class Number {
   public:
-    Number(int a);
-    Number(string s);
+    Number(int s):_value(s){}
+    int  _value;
+
+    Number(string s):s_symbol(s){}
+    string  s_symbol;
     bool match(Number a);
     bool match(Atom a);
     bool match(Variable V);
@@ -20,11 +24,8 @@ class Number {
     string symbol();
 
   private:
-    int _ivalue;
-    string _symbol;
-    string _value;
-    bool _status = true;
-    bool _assignable = true;
+    string s_value;
+    bool _assignable=true;
 };
 
 #endif

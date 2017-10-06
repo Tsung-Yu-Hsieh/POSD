@@ -24,7 +24,7 @@ class Variable{
 
   private:
     int _value;
-    string _svalue="";
+    string _svalue;
     bool _assignable = true;
     bool _assignable1 = true;
     int _a = 0;

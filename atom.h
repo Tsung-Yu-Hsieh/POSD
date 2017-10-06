@@ -20,6 +20,7 @@ class Atom{
  private:
    string _value;
    string _symbol;
+   bool _assignable;
 };
 
 #endif

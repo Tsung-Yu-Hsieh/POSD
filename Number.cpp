@@ -6,22 +6,21 @@
 using namespace std;
 stringstream ss;
 
-Number::Number(int a){
-  _ivalue = a;
-  ss << a;
-  ss >> _value;
-  
-}
-Number::Number(string s){
-  _symbol = s;
-}
+string Number::value(){
+ s_value = std::to_string(_value);
+ return s_value;
+ }
+
+ string Number::symbol(){
+   return s_symbol;
+ }
 bool Number::match(Number a){
-  if(_ivalue == a._ivalue){
-    return _status;
-   }
-  else{
-    return !_status;
-   }
+  if(_value == a._value)
+    _assignable=true;
+  else
+    _assignable=false;
+
+    return _assignable;
 }
 
 bool Number::match(Atom a){
@@ -34,20 +33,12 @@ bool Number::match(Variable V){
      return false;
    }
    if(_assignable){
-       V.setValue(_ivalue);
+       V.setValue(_value);
        _assignable = false;
      }
    return _ref;
 }
 
 int Number::ivalue(){
-  return _ivalue;
-}
-
-string Number::value(){
   return _value;
-}
-
-string Number::symbol(){
-  return _symbol;
 }
