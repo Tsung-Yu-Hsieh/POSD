@@ -17,7 +17,7 @@ public:
   string  s_symbol;
 
 
-  string value();   
+  string value();   //method  .value()
   string symbol();
   bool match(Number a);
   bool match(Atom a);

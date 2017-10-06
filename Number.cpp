@@ -28,7 +28,7 @@ bool Number::match(Atom a){
 
 
  bool Number::match(Variable a){
-    if(a._l){
+    if(a._come){
       _assignable=true;
     }
     else{

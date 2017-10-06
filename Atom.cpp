@@ -5,18 +5,18 @@
 
 using std::string;
 bool Atom::match(Number a){
-
-   return false;
+  _assignable=false;
+   return _assignable;
 }
 
-bool Atom::match(Variable& v){
-  if(v._l){
+bool Atom::match(Variable& a){
+  if(a._come){
     _assignable=true;
-    v._symbol=_symbol;
-    v._l=false;
+    a._symbol=_symbol;
+    a._come=false;
   }
   else{
-    if(v._symbol == _symbol){
+    if(_symbol==a._symbol){
       _assignable=true;
     }
     else{

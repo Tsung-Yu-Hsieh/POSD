@@ -7,9 +7,9 @@ bool Variable::value(){
 }
 
 bool Variable::match(Number a){
-   if(_a){
+   if(_assign){
    _assignable=true;
-   _a=false;
+   _assign=false;
    }
    else{
      _assignable=false;
@@ -19,9 +19,9 @@ bool Variable::match(Number a){
 
 
 bool Variable::match(Atom a){
-  if(_l){
+  if(_come){
    _symbol = a._symbol;
-   _l=false;
+   _come=false;
    _assignable=true;
    }
   else{

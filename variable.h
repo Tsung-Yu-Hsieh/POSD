@@ -9,18 +9,19 @@ class Atom;
 class Number;
 class Variable{
 public:
-  Variable(string s):_symbol(s){}
+  Variable(string s):_symbol(s),_come(true){}
   string  _symbol;
 
   bool value();
   bool match(Number a);
   bool match(Atom a);
-  bool _l=true;
+  bool _come=true;
+  // bool match( Atom atom );
 
 private:
   bool _value;
   bool _assignable = true;
-  bool _a=true;
+  bool _assign=true;
 
 };
 

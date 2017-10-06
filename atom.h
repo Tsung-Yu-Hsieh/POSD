@@ -19,7 +19,7 @@ public:
   bool match(Variable& a);
 
 private:
-  bool _assignable=true;
+  bool _assignable;
 
 };
 
