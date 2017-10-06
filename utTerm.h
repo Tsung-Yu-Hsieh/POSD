@@ -110,7 +110,7 @@ TEST (Variable, matchSuccessToAtomThenFailureToNumber) {
   Atom tom("tom");
   Number num(25);
   ASSERT_TRUE(X.match(tom));
-  ASSERT_FALSE(X.match(num));
+  ASSERT_FALSE(tom.match(num));
 }
 //?- tom=X, 25=X.
 //false.
