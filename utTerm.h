@@ -1,5 +1,6 @@
 #ifndef UTTERM_H
 #define UTTERM_H
+
 #include "variable.h"
 #include "atom.h"
 #include "number.h"
@@ -61,7 +62,7 @@ TEST (Atom, matchSuccessToVar) {
   Atom tom("tom");
   Variable X("X");
   tom.match(X);
-  EXPECT_EQ(X.svalue(),"tom");
+  EXPECT_EQ("tom",X.svalue());
 
 }
 
@@ -83,7 +84,7 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
   Atom tom("tom");
   EXPECT_TRUE(X.match(jerry));
   EXPECT_EQ("jerry",X.svalue());
-  EXPECT_TRUE(tom.match(X));
+  EXPECT_FALSE(tom.match(X));
 }
 
 // ?- X = 5.

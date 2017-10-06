@@ -22,9 +22,17 @@ bool Atom::match(Number n1){
 }
 
 bool Atom::match(Variable& v){
+  if(v.svalue() == ""){
   v.setValue(_symbol);
   v.setBValue();
   return true;
+  }
+  else if(v.svalue() == _symbol){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 string Atom::result(Variable& r){
