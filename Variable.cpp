@@ -1,36 +1,62 @@
-#include "atom.h"
 #include "variable.h"
+#include "atom.h"
 #include "number.h"
 
-bool Variable::value(){
+using namespace std;
+
+//Variable::Variable(string s){
+  //_symbol = s;
+//}
+void Variable::setValue(int a){
+  _value = a;
+}
+
+void Variable::setValue(string a){
+  _svalue = a;
+}
+
+bool Variable::match(Atom a){
+  bool _ref = _assignable;
+    if(_assignable){
+      _svalue = a.symbol();
+      _assignable = false;
+    }
+    if(_svalue == a.symbol()){
+         return true;
+      }
+    return _ref;
+}
+
+bool Variable::match(Number& n){
+  bool _ref = _assignable1;
+    if(_assignable == false){
+      return false;
+    }
+    if(_assignable1){
+    _value = n.ivalue();
+    _assignable1 = false;
+    return _ref;
+    }
+   else{
+    return _ref;
+    }
+}
+
+int Variable::value(){
   return _value;
 }
 
-bool Variable::match(Number a){
-   if(_assign){
-   _assignable=true;
-   _assign=false;
-   }
-   else{
-     _assignable=false;
-   }
-   return _assignable;
+string Variable::svalue(){
+  return _svalue;
+}
+string Variable::symbolv(){
+  return _symbol;
 }
 
+int Variable::a(){
+  return _a;
+}
 
-bool Variable::match(Atom a){
-  if(_come){
-   _symbol = a._symbol;
-   _come=false;
-   _assignable=true;
-   }
-  else{
-    if(_symbol==a._symbol){
-       _assignable=true;
-    }
-    else{
-     _assignable=false;
-    }
-   }
-   return _assignable;
+void Variable::setBValue(){
+  _a = 1;
 }

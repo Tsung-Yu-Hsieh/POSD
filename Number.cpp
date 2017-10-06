@@ -1,39 +1,56 @@
+#include "number.h"
 #include "atom.h"
 #include "variable.h"
-#include "number.h"
+#include <sstream>
 
+using namespace std;
+stringstream ss;
 
-string Number::value(){
- s_value = std::to_string(i_value);
- return s_value;
- }
-
- string Number::symbol(){
-   return s_symbol;
- }
-
+Number::Number(){
+  _value = "0";
+}
+Number::Number(int a){
+  _ivalue = a;
+  ss << a;
+  ss >> _value;
+  _symbol = ss.str();
+}
+Number::Number(string s){
+  _symbol = s;
+}
 bool Number::match(Number a){
-  if(i_value==a.i_value)
-    _assignable=true;
-  else
-    _assignable=false;
-
-  return _assignable;
+  if(_ivalue == a._ivalue){
+    return _status;
+   }
+  else{
+    return !_status;
+   }
 }
 
-bool Number::match(Atom a){
-   _assignable=false;
-   return _assignable;
- }
+bool Number::match(Atom& a){
+  return false;
+}
 
+bool Number::match(Variable& V){
+ bool _ref = _assignable;
+   if(V.a()== 1){
+     return false;
+   }
+   if(_assignable){
+       V.setValue(_ivalue);
+       _assignable = false;
+     }
+   return _ref;
+}
 
- bool Number::match(Variable a){
-    if(a._come){
-      _assignable=true;
-    }
-    else{
-      _assignable=false;
-    }
-  return _assignable;
+int Number::ivalue(){
+  return _ivalue;
+}
 
+string Number::value(){
+  return _value;
+}
+
+string Number::symbol(){
+  return _symbol;
 }
