@@ -63,7 +63,6 @@ TEST (Atom, matchSuccessToVar) {
   Atom tom("tom");
   Variable X("X");
   ASSERT_TRUE(tom.match(X));
-
 }
 
 // ?- X=tom, tom=X.
