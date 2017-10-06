@@ -51,7 +51,7 @@ TEST (Number, matchSuccessToVar) {
 TEST (Atom, matchFailureDiffConstant) {
   Atom tom("tom");
   Number num(25);
-  EXPECT_FALSE(tom.match(num));
+  ASSERT_FALSE(tom.match(num));
 }
 
 // ?- tom = X.
