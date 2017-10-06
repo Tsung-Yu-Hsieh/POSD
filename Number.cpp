@@ -15,7 +15,9 @@ Number::Number(int a){
   ss >> _value;
   _symbol = ss.str();
 }
-
+Number::Number(string s){
+  _symbol = s;
+}
 bool Number::match(Number a){
   if(_ivalue == a._ivalue){
     return _status;
