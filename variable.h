@@ -1,33 +1,28 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
-#include <iostream>
-using namespace std;
+
+#include <string>
+
 using std::string;
 
 class Atom;
 class Number;
-
 class Variable{
-  public:
+public:
+  Variable(string s):_symbol(s),_come(true){}
+  string  _symbol;
 
-    Variable(string s):_symbol(s){}
-    string const _symbol;
-    bool match(Atom a);
-    bool match(Number& n);
-    int a();
-    int value();
-    void setValue(int a);
-    void setValue(string a);
-    void setBValue();
-    string svalue();
-    string symbolv();
+  bool value();
+  bool match(Number a);
+  bool match(Atom a);
+  bool _come=true;
+  // bool match( Atom atom );
 
-  private:
-    int _value;
-    string _svalue="";
-    bool _assignable = true;
-    bool _assignable1 = true;
-    int _a = 0;
+private:
+  bool _value;
+  bool _assignable = true;
+  bool _assign=true;
+
 };
 
 #endif

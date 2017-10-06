@@ -1,25 +1,26 @@
 #ifndef ATOM_H
 #define ATOM_H
+
 #include <string>
-using namespace std;
+#include <stdio.h>
 
 using std::string;
+
 class Number;
 class Variable;
+class Atom {
+public:
+  Atom (string s):_symbol(s){
+    _assignable=false;
+  }
+  string _symbol;
 
-class Atom{
-  public:
-    Atom();
-    Atom (string s);
-    string symbol();
-    string value();
+  bool match(Number a);
+  bool match(Variable& a);
 
-    bool match(Number n1);
-    bool match(Variable& v);
-    string result(Variable& r);
- private:
-   string _value;
-   string _symbol;
+private:
+  bool _assignable;
+
 };
 
 #endif
