@@ -1,12 +1,27 @@
 all: hw3
 
-hw3: mainAtom.o Atom.o 
-	g++ -o hw3 mainAtom.o Atom.o -lgtest -lpthread
-mainAtom.o: mainAtom.cpp utAtom.h utStruct.h struct.h utVariable.h variable.h
-	g++ -std=c++11 -c mainAtom.cpp
-Atom.o: atom.h Atom.cpp
-		g++ -std=c++11 -c Atom.cpp
+hw3:  mainAtom.o Atom.o
 
+ifeq (${OS}, Windows_NT)
+	g++ -o hw3  mainAtom.o Atom.o -lgtest
+else
+	g++ -o hw3  mainAtom.o Atom.o -lgtest -lpthread
+endif
+
+mainAtom.o: mainAtom.cpp utAtom.h utStruct.h struct.h utVariable.h variable.h
+	g++ -std=gnu++0x -c mainAtom.cpp
+
+Atom.o: atom.h Atom.cpp
+	g++ -std=gnu++0x -c Atom.cpp
+
+
+
+clean:
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
+	rm -f *.o hw3
+endif
 
 
 #exp: mainExp.o
@@ -31,7 +46,3 @@ Atom.o: atom.h Atom.cpp
 #g++ -std=c++11 -c var.cpp
 #list.o: list.h list.cpp term.h var.h
 #	g++ -std=c++11 -c list.cpp
-clean:
-	rm -f *.o hw3
-stat:
-	wc *.h *.cpp
