@@ -1,33 +1,75 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 #include <iostream>
-using namespace std;
+#include <string>
+#include "atom.h"
+#include "struct.h"
+#include "number.h"
 using std::string;
+using namespace std;
 
-class Atom;
-class Number;
+class Variable :public Term{
+public:
+  Variable(string s):_symbol(s){
+    _value = _symbol;
+  }
+  string _symbol;
 
-class Variable{
-  public:
+  string symbol() const{
+    return _symbol;
+  }
 
-    Variable(string s):_symbol(s){}
-    string const _symbol;
-    bool match(Atom a);
-    bool match(Number& n);
-    int a();
-    int value();
-    void setValue(int a);
-    void setValue(string a);
-    void setBValue();
-    string svalue();
-    string symbolv();
+  string value() const {
+    return _value;
+  }
+  void setValue(string s1) {
+    _value = s1;
+  }
+  bool match(Term & term){
+    Atom * aps = dynamic_cast<Atom *>(&term);
+    Number * nps = dynamic_cast<Number *>(&term);
+    Variable * vps = dynamic_cast<Variable *>(&term);
+    //Variable &v = static_cast<Variable &>(term);
 
-  private:
-    int _value;
-    string _svalue="";
-    bool _assignable = true;
-    bool _assignable1 = true;
-    int _a = 0;
+    bool _ret = _assignable;
+    if(aps){
+      if(_ret){
+        _value = aps->value();
+        if(_signal){
+         v1->setValue(aps->value());
+        }
+        _assignable = false;
+    }
+   }
+   if(nps){
+     cout << nps->value() <<endl;
+     if(_ret){
+       _value = nps->value();
+       cout << nps->value() << endl;
+       cout << "test1" << endl;
+       if(_signal){
+         cout << "test2" << endl;
+        v1->setValue(nps->value());
+        cout << v1->symbol()+ " = " << v1->value() << " " << _symbol+" = " << _value << endl;
+        }
+        cout << _symbol+ " = " << _value << endl;
+       }
+       _assignable = false;
+  }
+  if(vps){
+    if(!_signal){
+    v1 = vps;
+  }
+    _signal = true;
+  }
+    return _ret;
+  }
+
+private:
+  bool _signal = false;
+  string _value;
+  Variable *v1;
+  bool _assignable = true;
 };
 
 #endif

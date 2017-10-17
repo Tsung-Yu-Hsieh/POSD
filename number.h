@@ -1,31 +1,28 @@
 #ifndef NUMBER_H
 #define NUMBER_H
-#include <string>
+#include "atom.h"
+#include <sstream>
 
-using std::string;
-
-class Atom;
-class Variable;
-
-class Number {
+using namespace std;
+stringstream ss;
+class Number : public Term{
   public:
-    Number();
-    Number(int a);
-    Number(string s);
-    bool match(Number a);
-    bool match(Atom& a);
-    bool match(Variable& V);
+    Number(double a):_value(a){
+      ss << a;
+      ss >> _svalue;
+    }
+    double _value;
 
-    int ivalue();
-    string value();
-    string symbol();
+    string symbol() const{
+      return _svalue;
+    }
+
+    string value() const {
+      return _svalue;
+    }
 
   private:
-    int _ivalue;
-    string _symbol;
-    string _value;
-    bool _status = true;
-    bool _assignable = true;
+    string _svalue;
 };
 
 #endif
