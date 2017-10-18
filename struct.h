@@ -16,7 +16,7 @@ public:
     return _args[index];
   }
 
-  Atom &name() {
+  Atom const &name() {
     return _name;
   }
   string symbol() const{

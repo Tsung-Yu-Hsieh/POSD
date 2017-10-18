@@ -1,28 +1,29 @@
 #ifndef NUMBER_H
 #define NUMBER_H
-#include "atom.h"
-#include <sstream>
 
+#include <sstream>
+#include <string>
+#include "term.h"
 using namespace std;
-stringstream ss;
+
+
+
 class Number : public Term{
   public:
-    Number(double a):_value(a){
-      ss << a;
-      ss >> _svalue;
-    }
-    double _value;
 
-    string symbol() const{
-      return _svalue;
-    }
 
-    string value() const {
-      return _svalue;
-    }
+    Number(double a);
+
+    string symbol() const;
+
+    string value() const;
+
+    bool match(Term &term);
 
   private:
     string _svalue;
+    double _value;
+    bool _assignable1 = true;
 };
 
 #endif

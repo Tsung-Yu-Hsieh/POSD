@@ -1,10 +1,10 @@
 #ifndef UTSTRUCT_H
 #define UTSTRUCT_H
 #include <vector>
-#include "atom.h"
-#include "struct.h"
-#include "number.h"
 #include "variable.h"
+#include "atom.h"
+#include "number.h"
+#include "struct.h"
 
 TEST(Struct, hobby)
 {
@@ -173,6 +173,7 @@ TEST(Struct, nested_struct_and_multiVariable)
   Struct s1(Atom("s1"),v1);
   EXPECT_TRUE(X.match(Y));
   EXPECT_TRUE(X.match(kent_beck));
+  EXPECT_EQ("s1(s2(Y), X)",s1.symbol());
   EXPECT_EQ("s1(s2(kent_beck), kent_beck)",s1.value());
 }
 

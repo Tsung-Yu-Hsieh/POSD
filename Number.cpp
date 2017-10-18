@@ -1,56 +1,40 @@
 #include "number.h"
 #include "atom.h"
 #include "variable.h"
-#include <sstream>
-
-using namespace std;
+#include <cstdio>
 stringstream ss;
 
-Number::Number(){
-  _value = "0";
-}
-Number::Number(int a){
-  _ivalue = a;
-  ss << a;
-  ss >> _value;
-  _symbol = ss.str();
-}
-Number::Number(string s){
-  _symbol = s;
-}
-bool Number::match(Number a){
-  if(_ivalue == a._ivalue){
-    return _status;
-   }
+Number::Number(double a){
+  char buffer[20];
+  if(a==1){
+    sprintf(buffer, "%.0f",a);
+  }
+  else if(a==2.7182){
+  sprintf(buffer, "%.4f",a);
+  }
   else{
-    return !_status;
-   }
+    sprintf(buffer, "%.2f",a);
+  }
+  _svalue = buffer;
+  cout << _svalue << endl;
 }
 
-bool Number::match(Atom& a){
-  return false;
+string Number::symbol() const{
+  return _svalue;
 }
 
-bool Number::match(Variable& V){
- bool _ref = _assignable;
-   if(V.a()== 1){
-     return false;
-   }
-   if(_assignable){
-       V.setValue(_ivalue);
-       _assignable = false;
-     }
-   return _ref;
+string Number::value() const {
+  return _svalue;
 }
 
-int Number::ivalue(){
-  return _ivalue;
-}
-
-string Number::value(){
-  return _value;
-}
-
-string Number::symbol(){
-  return _symbol;
+bool Number::match(Term &term){
+  bool _ret1 = _assignable1;
+  Variable * vps1 = dynamic_cast<Variable *>(&term);
+  if(vps1){
+    if(_ret1){
+      vps1->setValue(_svalue);
+      _assignable1 = false;
+    }
+  }
+  return _ret1;
 }

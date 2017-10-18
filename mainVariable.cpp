@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include "utVariable.h"
 
 
 int main( int argc , char **argv )

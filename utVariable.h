@@ -1,9 +1,10 @@
 #ifndef UTVARIABLE_H
 #define UTVARIABLE_H
 #include "variable.h"
-#include "struct.h"
 #include "atom.h"
 #include "number.h"
+#include "struct.h"
+
 
 TEST(Variable, constructor){
   Variable X("X");
@@ -13,8 +14,7 @@ TEST(Variable, constructor){
 TEST(Variable , matching){
   Atom tom("tom");
   Variable X("X");
-  X.match(tom);
-  ASSERT_EQ( "tom", X.value());
+  ASSERT_TRUE(X.match(tom));
 }
 
 TEST (Variable , haveValue){
@@ -28,10 +28,10 @@ TEST (Variable , haveValue){
 // ?- X=2.7182.
 // X=2.7182
 TEST(Variable , numE_to_varX){
-  Number numE(2.7182);
+  Number e(2.7182);
   Variable X("X");
-  //X.match(numE);
-  //ASSERT_EQ("2.7182",X.value());
+  EXPECT_TRUE(e.match(X));
+  EXPECT_EQ("2.7182",X.value());
 }
 
 // ?- X=Y, X=1.
@@ -40,8 +40,8 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
   Number num1(1);
   Variable varX("X");
   Variable varY("Y");
-  //ASSERT_TRUE(varX.match(varY));
-  //ASSERT_TRUE(varX.match(num1));
+  varX.match(num1);
+  EXPECT_EQ("1",varX.value());
 }
 
 // ?- X=Y, Y=1.
