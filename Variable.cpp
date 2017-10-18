@@ -36,9 +36,10 @@ bool Variable::match(Term & term){
    cout << nps << endl;
    cout << nps->value() << endl;
    if(_ret){
-     if(!_signal2)
       setValue(nps->value());
-      
+      if(_signal2)
+       v1->setValue(nps->value());
+
   }
      _assignable = false;
 }
