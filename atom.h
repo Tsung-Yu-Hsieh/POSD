@@ -7,11 +7,15 @@ using std::string;
 
 
 class Atom : public Term{
-public:
-  Atom (string s);
-  string symbol() const;
+  public:
+    Atom (string s);
+    string symbol() const;
 
-  string _symbol;
+    bool match(Term &term);
+    string _symbol;
+  private:
+    bool _assignable = true;
+
 };
 
 

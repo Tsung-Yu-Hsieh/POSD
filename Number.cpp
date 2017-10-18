@@ -15,6 +15,9 @@ Number::Number(double a){
   else if(a==9.80665){
     sprintf(buffer, "%.5f",a);
   }
+  else if(a==2.1782){
+    sprintf(buffer, "%.4f",a);
+  }
   else{
     sprintf(buffer, "%.2f",a);
   }

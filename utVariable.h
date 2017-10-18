@@ -14,7 +14,7 @@ TEST(Variable, constructor){
 TEST(Variable , matching){
   Atom tom("tom");
   Variable X("X");
-  ASSERT_TRUE(X.match(tom));
+  EXPECT_TRUE(X.match(tom));
 }
 
 TEST (Variable , haveValue){
