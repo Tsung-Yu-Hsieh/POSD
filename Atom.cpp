@@ -17,5 +17,9 @@ bool Atom::match(Term & term){
       _assignable = false;
     }
   }
+  Atom * aps = dynamic_cast<Atom *>(&term);
+  if(aps){
+    return symbol() == aps->symbol();
+  }
   return _ret;
 }
