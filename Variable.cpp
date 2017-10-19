@@ -28,7 +28,6 @@ bool Variable::match(Term & term){
       }
       _assignable = false;
   }
-    return _ret;
  }
 
  Number * nps = dynamic_cast<Number *>(&term);
@@ -37,10 +36,7 @@ bool Variable::match(Term & term){
    cout << nps << endl;
    cout << nps->value() << endl;
    if(_ret){
-      setValue(nps->value());
-      if(_signal2)
-       v1->setValue(nps->value());
-
+     setValue(nps->value());
   }
      _assignable = false;
 }
@@ -49,8 +45,6 @@ bool Variable::match(Term & term){
   if(vps){
     if(!_signal){
       v1 = vps;
-      _value = vps->value();
-      _signal2 = true;
     }
     _signal = true;
   }

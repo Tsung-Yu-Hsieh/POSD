@@ -22,7 +22,6 @@ public:
 
 private:
   bool _signal = false;
-  bool _signal2 = false;
   string _value;
   Variable *v1;
   bool _assignable = true;
