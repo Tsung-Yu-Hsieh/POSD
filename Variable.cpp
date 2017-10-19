@@ -28,6 +28,7 @@ bool Variable::match(Term & term){
       }
       _assignable = false;
   }
+    return _ret;
  }
 
  Number * nps = dynamic_cast<Number *>(&term);
