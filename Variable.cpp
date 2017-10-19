@@ -49,7 +49,7 @@ bool Variable::match(Term & term){
   if(vps){
     if(!_signal){
       v1 = vps;
-      _value = vps->symbol();
+      _value = vps->value();
       _signal2 = true;
     }
     _signal = true;
