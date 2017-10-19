@@ -77,7 +77,7 @@ bool Variable::match(Term & term){
 
   Struct *ps = dynamic_cast<Struct *>(&term);
   if(ps){
-    _value = ps->value1();
+    _value = ps->value();
   }
   return _ret;
 }
