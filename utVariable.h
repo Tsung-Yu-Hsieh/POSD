@@ -53,7 +53,12 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
 // ?- X=X, X=1.
 // X=1
 TEST (Variable, varX_match_varX_and_num1_to_varX) {
-
+ Number num1(1);
+ Variable X("X");
+ Variable Y("Y");
+ X.match(X);
+ X.match(num1);
+ EXPECT_EQ("1",X.value());
 }
 
 // ?- Y=1, X=Y.
