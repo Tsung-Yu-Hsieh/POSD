@@ -47,7 +47,12 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
 // ?- X=Y, Y=1.
 // X=1
 TEST (Variable, varY_to_varX_and_num1_to_varY) {
-
+  Number num1(1);
+  Variable varX("X");
+  Variable varY("Y");
+  varX.match(varY);
+  varY.match(num1);
+  EXPECT_EQ("1",varX.value());
 }
 
 // ?- X=X, X=1.
@@ -64,7 +69,12 @@ TEST (Variable, varX_match_varX_and_num1_to_varX) {
 // ?- Y=1, X=Y.
 // X=1
 TEST (Variable, num1_to_varY_and_varX_match_varY) {
-
+  Number num1(1);
+  Variable X("X");
+  Variable Y("Y");
+  Y.match(num1);
+  X.match(Y);
+  EXPECT_EQ("1",X.value());
 }
 
 // ?- X=Y, Y=Z, Z=1
@@ -85,7 +95,11 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
 // Then #symbol() of Y should return "Y"
 // And #value() of Y should return "s(X)"
 TEST (Variable, Struct1) {
-
+  Variable X("X");
+  Variable Y("Y");
+  std::vector<Term *> v = {&X,&Y};
+  Struct s(Atom("s"),v);
+  Y.match(s);
 }
 
 // Give there is a Struct s contains Variable X
@@ -95,7 +109,13 @@ TEST (Variable, Struct1) {
 // Then #symbol() of Y should return "Y"
 // And #value() of Y should return "s(teddy)"
 TEST (Variable, Struct2) {
-
+  Variable X("X");
+  Variable Y("Y");
+  Atom teddy("teddy");
+  std::vector<Term *> v = {&X,&Y};
+  Struct s(Atom("s"),v);
+  Y.match(s);
+  X.match(teddy);
 }
 
 #endif
