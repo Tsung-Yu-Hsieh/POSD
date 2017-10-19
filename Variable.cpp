@@ -16,7 +16,9 @@ string Variable::value() const {
 void Variable::setValue(string s1) {
   _value = s1;
 }
-
+int Variable::signal2(int a){
+  _signal2 = a;
+}
 bool Variable::match(Term & term){
   bool _ret = _assignable;
   Atom * aps = dynamic_cast<Atom *>(&term);
@@ -28,15 +30,24 @@ bool Variable::match(Term & term){
       }
       _assignable = false;
   }
+
  }
 
  Number * nps = dynamic_cast<Number *>(&term);
 
  if(nps){
-   cout << nps << endl;
-   cout << nps->value() << endl;
+   //cout << nps << endl;
+   //cout << nps->value() << endl;
    if(_ret){
-     setValue(nps->value());
+      setValue(nps->value());
+      cout << "test2" << endl;
+      cout << _signal2 << endl;
+      if(_signal2){
+        cout << "test123" << endl;
+        v1->setValue(nps->value());
+        cout << v1->value() << endl;
+
+     }
   }
      _assignable = false;
 }
@@ -45,6 +56,10 @@ bool Variable::match(Term & term){
   if(vps){
     if(!_signal){
       v1 = vps;
+      _value = vps->value();
+      _signal2 = true;
+      cout << _signal2 << endl;
+      cout << "test1" << endl;
     }
     _signal = true;
   }
