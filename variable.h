@@ -16,6 +16,7 @@ public:
 
   string symbol() const;
   string value() const;
+  string value1() const;
   int signal2(int a);
   void setPoint(Variable * ps);
   void setValue(string s1);

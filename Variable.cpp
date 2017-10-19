@@ -1,7 +1,7 @@
 #include "variable.h"
 #include "atom.h"
 #include "number.h"
-
+#include "struct.h"
 
 Variable::Variable(string s){
   _symbol = s;
@@ -73,6 +73,11 @@ bool Variable::match(Term & term){
       cout << "test1" << endl;
     }
     _signal = true;
+  }
+
+  Struct *ps = dynamic_cast<Struct *>(&term);
+  if(ps){
+    _value = ps->value1();
   }
   return _ret;
 }
