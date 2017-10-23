@@ -1,25 +1,17 @@
 #include "atom.h"
 #include "variable.h"
+#include <typeinfo>
+#include <iostream>
+using namespace std;
 
-Atom::Atom(string s){
-  _symbol = s;
-}
-string Atom::symbol() const{
-  return _symbol;
-}
-
-bool Atom::match(Term & term){
-  Variable * vps1 = dynamic_cast<Variable *>(&term);
-  bool _ret = _assignable;
-  if(vps1){
-    if(_ret){
-      vps1->setValue(_symbol);
-      _assignable = false;
-    }
+bool Term::match(Term & a){
+  if (typeid(a) ==  typeid(Variable)){
+    cout << "test1" << endl;
+    cout << this->symbol() << endl;
+    return a.match(*this);
   }
-  Atom * aps = dynamic_cast<Atom *>(&term);
-  if(aps){
-    return symbol() == aps->symbol();
+  else{
+    cout << "test4" << endl;
+    return symbol() == a.symbol();
   }
-  return _ret;
 }
