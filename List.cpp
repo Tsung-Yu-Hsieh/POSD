@@ -38,8 +38,8 @@ bool List::match(Term& term){
     List *list = static_cast<List*>(&term);
   for(int i=0;i<_elements.size();i++){
       if(_elements[i]->symbol()!=list->elements(i)->symbol()){
-        if(typeid(_elements[i])!=typeid(list->elements(i)))
-            return false;
+        //if(typeid(_elements[i])!=typeid(list->elements(i)))
+           // return false;
       }
     }
   }
