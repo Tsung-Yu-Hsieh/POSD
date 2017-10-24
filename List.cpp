@@ -1,4 +1,5 @@
 #include "list.h"
+#include "variable.h"
 #include <typeinfo>
 #include <iostream>
 
@@ -43,6 +44,8 @@ bool List::match(Term& term){
     }
   }
   else{
+  if(typeid(term)==typeid(Variable))
+   return true;
   return symbol() == term.symbol();
   }
       return true;
