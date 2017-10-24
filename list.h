@@ -10,11 +10,12 @@ class List : public Term {
 public:
   string symbol() const;
   string value() const;
-  //bool match(Term & term);
+  bool match(Term & term);
 
 public:
   List (): _elements() {}
   List (vector<Term *> const & elements):_elements(elements){}
+  Term * elements(int index);
   Term * head() const;
   List * tail() const;
 
