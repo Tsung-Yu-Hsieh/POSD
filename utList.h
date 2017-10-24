@@ -14,52 +14,92 @@ using std::string;
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"
 TEST (List, constructor) {
-
+  std::vector<Term *> v = {};
+  List l(v);
+  EXPECT_EQ("[]",l.symbol());
 }
 
 // Given there are two perfect Numbers: 8128, 496
 // When create a new list with the perfect Number
 // Then #symbol() of the list should return "[496, 8128]"
 TEST(List, Numbers) {
-
+  Number _num1(8128);
+  Number _num2(496);
+  std::vector<Term *> v = {&_num2,&_num1};
+  List l(v);
+  EXPECT_EQ("[496, 8128]",l.symbol());
 }
 
 // Given there are two atoms: "terence_tao", "alan_mathison_turing"
 // When create a new list with the Atoms
 // Then #symbol() of the list should return "[terence_tao, alan_mathison_turing]"
 TEST(List, Atoms) {
-
+  Atom terence_tao("terence_tao");
+  Atom alan_mathison_turing("alan_mathison_turing");
+  std::vector<Term *> v = {&terence_tao,&alan_mathison_turing};
+  List l(v);
+  EXPECT_EQ("[terence_tao, alan_mathison_turing]",l.symbol());
 }
 
 // Given there are two variables: X, Y
 // When create a new list with the variables
 // Then #symbol() of the list should return "[X, Y]"
 TEST(List, Vars) {
-
+  Variable X("X");
+  Variable Y("Y");
+  std::vector<Term *> v = {&X,&Y};
+  List l(v);
+  EXPECT_EQ("[X, Y]",l.symbol());
 }
 
 // ?- tom = [496, X, terence_tao].
 // false.
 TEST(List, matchToAtomShouldFail) {
-
+  Atom tom("tom");
+  Number num1(496);
+  Variable X("X");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  List l(v);
+  EXPECT_FALSE(tom.match(l));
 }
 
 // ?- 8128 = [496, X, terence_tao].
 // false.
 TEST(List, matchToNumberShouldFail) {
-
+  Number num1(8128);
+  Number num2(496);
+  Variable X("X");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num2,&X,&terence_tao};
+  List l(v);
+  EXPECT_FALSE(num1.match(l));
 }
 
 // ?- s(X) = [496, X, terence_tao].
 // false.
 TEST(List, matchToStructShouldFail) {
-
+  Number num1(496);
+  Variable X("X");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v1 = {&X};
+  Struct s(Atom("s"),v1);
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  List l(v);
+  EXPECT_FALSE(num1.match(l));
 }
 
 // ?- Y = [496, X, terence_tao].
 // Y = [496, X, terence_tao].
 TEST(List, matchToVarShouldSucceed) {
-
+  Number num1(496);
+  Variable X("X");
+  Variable Y("Y");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  List l(v);
+  EXPECT_TRUE(Y.match(l));
+  EXPECT_EQ("[496, X, terence_tao]",Y.value());
 }
 
 // ?- X = [496, X, terence_tao].

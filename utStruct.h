@@ -4,6 +4,7 @@
 #include "struct.h"
 #include "term.h"
 #include "number.h"
+
 TEST(Struct, hobby)
 {
   Atom tom("tom");
@@ -100,6 +101,7 @@ TEST(Struct, var_match_atom)
   X.match(tom);
   ASSERT_EQ("s(tom)",s.value());
 }
+
 
 TEST(Struct, var_match_num)
 {

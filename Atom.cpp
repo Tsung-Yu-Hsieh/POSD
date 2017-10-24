@@ -1,17 +1,10 @@
 #include "atom.h"
 #include "variable.h"
+#include "list.h"
 #include <typeinfo>
-#include <iostream>
-using namespace std;
-
 bool Term::match(Term & a){
-  if (typeid(a) ==  typeid(Variable)){
-    cout << "test1" << endl;
-    cout << this->symbol() << endl;
+  if (typeid(a) ==  typeid(Variable))
     return a.match(*this);
-  }
-  else{
-    cout << "test4" << endl;
+  else
     return symbol() == a.symbol();
-  }
 }

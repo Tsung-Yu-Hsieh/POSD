@@ -19,6 +19,7 @@ protected:
     strs << db;
     _symbol = strs.str();
   }
+
   string _symbol;
 };
 
