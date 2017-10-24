@@ -42,7 +42,9 @@ bool List::match(Term& term){
       }
     }
   }
-      //return symbol() == term.symbol();
+  else{
+  return symbol() == term.symbol();
+  }
       return true;
 }
 
