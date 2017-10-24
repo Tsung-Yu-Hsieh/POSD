@@ -2,6 +2,8 @@
 #define UTLIST_H
 
 #include <string>
+#include <iostream>
+using namespace std;
 using std::string;
 
 #include "list.h"
@@ -61,7 +63,7 @@ TEST(List, matchToAtomShouldFail) {
   Atom terence_tao("terence_tao");
   std::vector<Term *> v = {&num1,&X,&terence_tao};
   List l(v);
-  EXPECT_FALSE(tom.match(l));
+  EXPECT_FALSE(l.match(tom));
 }
 
 // ?- 8128 = [496, X, terence_tao].
@@ -73,7 +75,7 @@ TEST(List, matchToNumberShouldFail) {
   Atom terence_tao("terence_tao");
   std::vector<Term *> v = {&num2,&X,&terence_tao};
   List l(v);
-  EXPECT_FALSE(num1.match(l));
+  EXPECT_FALSE(l.match(num1));
 }
 
 // ?- s(X) = [496, X, terence_tao].
@@ -86,7 +88,7 @@ TEST(List, matchToStructShouldFail) {
   Struct s(Atom("s"),v1);
   std::vector<Term *> v = {&num1,&X,&terence_tao};
   List l(v);
-  EXPECT_FALSE(num1.match(l));
+  EXPECT_FALSE(l.match(s));
 }
 
 // ?- Y = [496, X, terence_tao].
@@ -105,25 +107,54 @@ TEST(List, matchToVarShouldSucceed) {
 // ?- X = [496, X, terence_tao].
 // false.
 TEST(List, matchToVarOccuredInListShouldFail) {
-
+  Number num1(496);
+  Variable X("X");
+  Variable Y("Y");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  List l(v);
+  EXPECT_TRUE(X.match(l));
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
 // true.
 TEST(List, matchToSameListShouldSucceed) {
-
+  Number num1(496);
+  Variable X("X");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  List l(v);
+  List l1(v);
+  EXPECT_TRUE(l.match(l1));
 }
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
-
+  Number num1(496);
+  Variable X("X");
+  Variable Y("Y");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  std::vector<Term *> v1 = {&num1,&Y,&terence_tao};
+  List l(v);
+  List l1(v1);
+  EXPECT_TRUE(l.match(l1));
 }
 
 // ?- [496, X, terence_tao] = [496, 8128, terence_tao].
 // X = 8128.
 TEST(List, matchToVarToAtominListShouldSucceed) {
-
+  Number num1(496);
+  Number num2(8128);
+  Variable X("X");
+  Atom terence_tao("terence_tao");
+  std::vector<Term *> v = {&num1,&X,&terence_tao};
+  std::vector<Term *> v1 = {&num1,&num2,&terence_tao};
+  List l(v);
+  List l1(v1);
+  EXPECT_TRUE(l.match(l1));
+  EXPECT_EQ("8128",X.value());
 }
 
 // ?- Y = [496, X, terence_tao], X = alan_mathison_turing.

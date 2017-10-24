@@ -1,10 +1,13 @@
 #include "list.h"
 #include "variable.h"
+#include "number.h"
 #include <typeinfo>
 #include <iostream>
 
 using namespace std;
-
+string List::getName() const{
+  return "List";
+}
 Term * List::elements(int index) {
   return _elements[index];
 }
@@ -34,21 +37,24 @@ string List::value() const{
 }
 
 bool List::match(Term& term){
-  if(typeid(term)==typeid(List)){
-    List *list = static_cast<List*>(&term);
-  for(int i=0;i<_elements.size();i++){
-      if(_elements[i]->symbol()!=list->elements(i)->symbol()){
-        //if(typeid(_elements[i])!=typeid(list->elements(i)))
-           // return false;
+
+  if(typeid(term)==typeid(Variable)){
+      return true;
+  }
+  else if(typeid(term)==typeid(List)){
+      List &list = static_cast<List&>(term);
+      for(int i=0;i<_elements.size();i++){
+        if(_elements[i]->symbol()!=list.elements(i)->symbol()){
+            if(_elements[i]->getName()=="Variable"){
+              _elements[i]->match(*list.elements(i));
+            }
+        }
       }
-    }
+      return true;
   }
   else{
-  if(typeid(term)==typeid(Variable))
-   return true;
-  return symbol() == term.symbol();
+      return symbol() == term.symbol();
   }
-      return true;
 }
 
 Term * List::head() const{

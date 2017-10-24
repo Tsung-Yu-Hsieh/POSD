@@ -8,3 +8,6 @@ bool Term::match(Term & a){
   else
     return symbol() == a.symbol();
 }
+string Atom::getName() const{
+  return "Atom";
+}

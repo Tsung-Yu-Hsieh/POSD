@@ -11,6 +11,7 @@ public:
   string symbol() const;
   string value() const;
   bool match(Term & term);
+  string getName() const;
 
 public:
   List (): _elements() {}
