@@ -70,6 +70,7 @@ Term * List::head() const{
     throw 'a';
   }catch(int a){
     cout << "Accessing head in an empty list" <<endl;
+    return true;
   }catch(char a){
   return _elements[0];
  }
@@ -81,6 +82,7 @@ List * List::tail() const{
    throw 'a';
   }catch(int a){
     cout << "Accessing tail in an empty list" <<endl;
+    return true;
   }catch(char a){
   std::vector<Term*>  _elements1;
   _elements1.assign(this->_elements.begin()+1,this->_elements.end());
