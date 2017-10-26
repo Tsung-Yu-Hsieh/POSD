@@ -64,10 +64,21 @@ bool List::match(Term& term){
 }
 
 Term * List::head() const{
-
+  try{
+   if(_elements.empty())
+      throw 0;
+  }catch(int a){
+    cout << "Accessing head in an empty list" <<endl;
+  }
   return _elements[0];
 }
 List * List::tail() const{
+  try{
+   if(_elements.empty())
+      throw 0;
+  }catch(int a){
+    cout << "Accessing tail in an empty list" <<endl;
+  }
   static std::vector<Term*>  _elements1;
   static List list;
   _elements1.assign(this->_elements.begin()+1,this->_elements.end());
