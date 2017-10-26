@@ -67,25 +67,26 @@ Term * List::head() const{
   try{
    if(_elements.empty())
       throw 0;
+    throw 'a';
   }catch(int a){
     cout << "Accessing head in an empty list" <<endl;
-  }
+  }catch(char a){
   return _elements[0];
+ }
 }
 List * List::tail() const{
   try{
    if(_elements.empty())
       throw 0;
+   throw 'a';
   }catch(int a){
     cout << "Accessing tail in an empty list" <<endl;
-  }
-  static std::vector<Term*>  _elements1;
-  static List list;
+  }catch(char a){
+  std::vector<Term*>  _elements1;
   _elements1.assign(this->_elements.begin()+1,this->_elements.end());
-
-  list.set(_elements1);
-
-  return &list;
+    List* list = new List(_elements1);
+  return list;
+ }
 }
 void List::set(vector<Term *> const & elements){
   _elements = elements;
