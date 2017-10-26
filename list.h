@@ -15,7 +15,7 @@ public:
 
 public:
   List (): _elements() {}
-  List (vector<Term *> const & elements):_elements(elements){}
+  List (vector<Term *> const & elements);//:_elements(elements){}
   Term * elements(int index) const;
   Term * head() const;
   List * tail() ;
