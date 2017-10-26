@@ -68,5 +68,14 @@ Term * List::head() const{
   return _elements[0];
 }
 List * List::tail() const{
+  static std::vector<Term*>  _elements1;
+  static List list;
+  _elements1.assign(this->_elements.begin()+1,this->_elements.end());
 
+  list.set(_elements1);
+
+  return &list;
+}
+void List::set(vector<Term *> const & elements){
+  _elements = elements;
 }
