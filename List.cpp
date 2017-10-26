@@ -65,7 +65,7 @@ bool List::match(Term& term){
 
 Term * List::head() const{
 
-  
+  return _elements[0];
 }
 List * List::tail() {
 
