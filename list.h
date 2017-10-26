@@ -18,7 +18,7 @@ public:
   List (vector<Term *> const & elements);//:_elements(elements){}
   Term * elements(int index) const;
   Term * head() const;
-  List * tail() ;
+  List * tail() const;
   void set(vector<Term *> const & elements);
 private:
   vector<Term *> _elements;
