@@ -16,12 +16,13 @@ public:
 public:
   List (): _elements() {}
   List (vector<Term *> const & elements):_elements(elements){}
-  Term * elements(int index);
+  Term * elements(int index) const;
   Term * head() const;
-  List * tail() const;
-
+  List * tail() ;
+  void set(vector<Term *> const & elements);
 private:
   vector<Term *> _elements;
+
 
 };
 
