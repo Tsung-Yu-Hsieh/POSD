@@ -69,19 +69,8 @@ List * List::tail() {
   static std::vector<Term*>  _elements1;
 
   _elements1.assign(this->_elements.begin()+1,this->_elements.end());
-  if(_elements1.size()==2){
-  cout << _elements1[0]->value() << endl;
-  cout << _elements1[1]->value() << endl;
-}
 
-  //cout << _elements1[2]->value() << endl;
   static List list(_elements1);
-  if(_elements1.size()==1){
-    cout << _elements1.size() << endl;
-  cout << _elements1[0]->value() << endl;
-  cout << _elements1[1]->value() << endl;
-  static List list1(_elements1);
-  return &list1;
-  }
+
   return &list;
 }
