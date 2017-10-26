@@ -63,14 +63,8 @@ bool List::match(Term& term){
 
 Term * List::head() const{
 
-  return _elements[0];
+  
 }
 List * List::tail() {
-  static std::vector<Term*>  _elements1;
-
-  _elements1.assign(this->_elements.begin()+1,this->_elements.end());
-
-  static List list(_elements1);
-
-  return &list;
+ 
 }
