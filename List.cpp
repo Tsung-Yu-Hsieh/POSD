@@ -67,6 +67,6 @@ Term * List::head() const{
 
   return _elements[0];
 }
-List * List::tail() {
+List * List::tail() const{
 
 }
