@@ -65,7 +65,7 @@ bool List::match(Term& term){
 
 Term * List::head() const{
   if(this->value()=="[]"){
-    throw "Accessing head in an empty list";
+    throw string("Accessing head in an empty list");
   }
   else{
   return _elements[0];
@@ -73,7 +73,7 @@ Term * List::head() const{
 }
 List * List::tail() const{
    if(this->value()=="[]"){
-    throw "Accessing tail in an empty list" ;
+    throw string("Accessing tail in an empty list");
    }
    else{
   std::vector<Term*>  _elements1;

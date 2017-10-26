@@ -230,7 +230,7 @@ TEST (List, emptyExecptionOfHead) {
       vector<Term *> args = {};
       List l(args);
       l.head()->value();
-  }catch(const char* message){
+  }catch(string message){
       EXPECT_EQ(string("Accessing head in an empty list"),message);
   }
 
@@ -245,7 +245,7 @@ TEST (List, emptyExecptionOfTail) {
       vector<Term *> args = {};
       List l(args);
       l.tail()->value();
-  }catch(const char* message){
+  }catch(string message){
       EXPECT_EQ(string("Accessing tail in an empty list"),message);
   }
 }
