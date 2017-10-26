@@ -231,7 +231,6 @@ TEST (List, emptyExecptionOfHead) {
       List l(args);
       l.head()->value();
   }catch(const char* message){
-      cout << "Accessing head in an empty list" << endl;
       EXPECT_EQ(string("Accessing head in an empty list"),message);
   }
 
@@ -247,7 +246,6 @@ TEST (List, emptyExecptionOfTail) {
       List l(args);
       l.tail()->value();
   }catch(const char* message){
-      cout << "Accessing tail in an empty list" << endl;
       EXPECT_EQ(string("Accessing tail in an empty list"),message);
   }
 }
