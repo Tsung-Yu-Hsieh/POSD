@@ -1,5 +1,5 @@
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#ifndef H_GLOBAL
+#define H_GLOBAL
 
 #include <algorithm>
 

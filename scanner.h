@@ -3,15 +3,14 @@
 
 #include "global.h"
 
-
 #include <string>
 #include <vector>
 using std::string;
 using std::vector;
 
-class Scanner {
+class Scanner{
 public:
-  Scanner (string in=""):buffer(in), pos(0), _tokenValue(NONE){}
+  Scanner (string in):buffer(in), pos(0), _tokenValue(NONE){}
   void setInput(string in) {buffer = in;}
 
   int nextToken() {
@@ -38,7 +37,9 @@ public:
       }
   }
 
+
   int tokenValue() const {return _tokenValue;}
+
 
   int skipLeadingWhiteSpace() {
     for (; (buffer[pos] == ' ' || buffer[pos] == '\t') && pos<buffer.length(); ++pos);
@@ -55,6 +56,7 @@ public:
   int extractNumber() {
     int posBegin = position();
     for (;isdigit(buffer[pos]); ++pos);
+    //std::cout << pos << std::endl;
     return stoi(buffer.substr(posBegin, pos-posBegin));
   }
 
@@ -79,7 +81,6 @@ public:
   char extractChar() {
     return buffer[pos++];
   }
-
 private:
   string buffer;
   int pos;
@@ -94,6 +95,7 @@ private:
         _tokenValue = val;
     } else {
       symtable.push_back(pair<string, int>(s,TokenType));
+      //std::cout << TokenType << std::endl;
        _tokenValue = symtable.size()-1; // index to symtable
     }
   }
