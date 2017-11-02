@@ -13,9 +13,9 @@ public:
     _args = args;
   }
 
-  Term * args(int index) {
-    return _args[index];
-  }
+  //Term * args(int index) {
+  //  return _args[index];
+  //}
 
   Atom & name() {
     return _name;
@@ -35,6 +35,12 @@ public:
       ret += (*it)->value()+", ";
     ret  += (*it)->value()+")";
     return ret;
+  }
+  int arity(){
+    return _args.size();
+  }
+  Term & args(int index){
+    return *_args[index];
   }
 private:
   Atom _name;

@@ -93,7 +93,9 @@ TEST_F(ParserTest, listOfTermsTwoNumbers) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "point(1, X, z)".
 TEST_F(ParserTest, parseStructThreeArgs) {
-
+  Scanner scanner("point(1, X, z)");
+  Parser parser(scanner);
+  ASSERT_EQ("point(1, X, z)",parser.createTerm()->symbol());
 }
 
 
@@ -102,7 +104,10 @@ TEST_F(ParserTest, parseStructThreeArgs) {
 // Then it should return a List.
 // And #symbol() of List should return "[]".
 TEST_F(ParserTest, parseListEmpty) {
-
+  //---------------0123456789
+  Scanner scanner("   [   ]");
+  Parser parser(scanner);
+  ASSERT_EQ("[]",parser.createTerm()->symbol());
 }
 
 
