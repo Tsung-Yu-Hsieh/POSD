@@ -13,7 +13,7 @@ public:
     _args = args;
   }
 
-  Term  args(int index) {
+  Term *args(int index) {
     return _args[index];
   }
 
