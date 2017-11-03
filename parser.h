@@ -13,7 +13,7 @@ using std::vector;
 class Parser{
   public:
     Parser(Scanner scanner) : _scanner(scanner){}
-
+    Parser(Scanner (&)());
     Term* createTerm(){
       int token = _scanner.nextToken();
       std::cout << _scanner.position() << '\n';
