@@ -116,12 +116,18 @@ TEST_F(ParserTest, parseListEmpty) {
 // Then it should return a Variable.
 // And #symbol() of Variable should return "_date".
 TEST_F(ParserTest, parseVar) {
-
+  Scanner scanner("_date");
+  Parser parser(scanner);
+  ASSERT_EQ("_date",parser.createTerm()->symbol());
 }
 
-
+// Given there is not string in scanner.
+// When parser parses all terms via scanner.
+// Then it should return nothing.
 TEST_F(ParserTest, listOfTermsEmpty) {
-
+  //Scanner scanner();
+  //Parser parser(scanner);
+  //ASSERT_EQ("",parser.createTerm()->symbol());
 }
 
 
@@ -171,7 +177,7 @@ TEST_F(ParserTest, illegal1) {
 // Then it should return a Struct which contains two terms.
 // And #arity() of the Struct should be 2.
 // And #symbol() of Struct should return ".(1, [])".
-// And the first term should be number: "1", the second term should be another Strcut: "[]".
+// And the first term should be number: "1", the second term should be another List: "[]".
 TEST_F(ParserTest, ListAsStruct) {
 
 }

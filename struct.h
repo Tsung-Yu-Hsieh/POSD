@@ -13,9 +13,9 @@ public:
     _args = args;
   }
 
-  //Term * args(int index) {
-  //  return _args[index];
-  //}
+  Term * args(int index) {
+    return _args[index];
+  }
 
   Atom & name() {
     return _name;
@@ -39,9 +39,7 @@ public:
   int arity(){
     return _args.size();
   }
-  Term & args(int index){
-    return *_args[index];
-  }
+
 private:
   Atom _name;
   std::vector<Term *> _args;

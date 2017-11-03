@@ -12,26 +12,27 @@
 using std::vector;
 class Parser{
   public:
-    Parser(Scanner scanner) : _scanner(scanner){}
-    Parser(Scanner (&)());
+    Parser(Scanner scanner):_scanner(scanner){}
     Term* createTerm(){
       int token = _scanner.nextToken();
-      std::cout << _scanner.position() << '\n';
-      std::cout << token << '\n';
+      //std::cout << _scanner.position() << '\n';
+      //std::cout << token << '\n';
       if(token == VAR) {
         return new Variable(symtable[_scanner.tokenValue()].first);
       } else if(token == NUMBER) {
         return new Number(_scanner.tokenValue());
       } else if(token == ATOM) {
           Atom* atom = new Atom(symtable[_scanner.tokenValue()].first);
-          if(_scanner.nextToken() == '('){
+          if(_scanner.currentChar() == '('){
+            _scanner.nextToken();
             vector<Term *> terms = getArgs();
-            return new Struct(*atom,terms);
+            if(_currentToken == ')')
+             return new Struct(*atom,terms);
           }else{
             return atom;
           }
       } else if(token == 91){
-        std::cout << _scanner.position() << '\n';
+        //std::cout << _scanner.position() << '\n';
         if(_scanner.nextToken() == 93)
           return new List();
       } else {
@@ -53,6 +54,7 @@ class Parser{
 
   private:
     Scanner _scanner;
+
     int _currentToken;
 };
 

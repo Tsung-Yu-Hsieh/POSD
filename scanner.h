@@ -10,7 +10,7 @@ using std::vector;
 
 class Scanner{
 public:
-  Scanner (string in):buffer(in), pos(0), _tokenValue(NONE){}
+  Scanner (string in=""):buffer(in), pos(0), _tokenValue(NONE){}
   void setInput(string in) {buffer = in;}
 
   int nextToken() {
@@ -81,6 +81,7 @@ public:
   char extractChar() {
     return buffer[pos++];
   }
+
 private:
   string buffer;
   int pos;
