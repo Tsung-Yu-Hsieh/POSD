@@ -3,9 +3,9 @@ all: hw5
 hw5: mainScanner.o Number.o Atom.o Variable.o List.o
 
 ifeq (${OS}, Windows_NT)
-	g++ -o hw5 mainScanner.o Atom.o Number.o Variable.o List.o   -lgtest
+	g++ -o hw5 mainScanner.o Atom.o Number.o Variable.o List.o -lgtest
 else
-	g++ -o hw5 mainScanner.o Atom.o Number.o Variable.o List.o  -lgtest -lpthread
+	g++ -o hw5 mainScanner.o Atom.o Number.o Variable.o List.o -lgtest -lpthread
 endif
 
 mainScanner.o: mainScanner.cpp utScanner.h utParser.h scanner.h parser.h
