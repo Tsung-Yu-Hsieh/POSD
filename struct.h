@@ -13,8 +13,8 @@ public:
     _args = args;
   }
 
-  Term * args(int index) {
-    return _args[index];
+  Term & args(int index) {
+    return *_args[index];
   }
 
   Atom & name() {
