@@ -82,6 +82,10 @@ public:
     return buffer[pos++];
   }
 
+  void backspace(){
+    pos--;
+  }
+
 private:
   string buffer;
   int pos;

@@ -14,9 +14,9 @@ class Parser{
   public:
     Parser(Scanner scanner):_scanner(scanner){}
     Term* createTerm(){
-      //std::cout << _scanner.currentChar() << '\n';
 
       int token = _scanner.nextToken();
+
       if(token == VAR) {
         return new Variable(symtable[_scanner.tokenValue()].first);
       } else if(token == NUMBER) {
@@ -32,10 +32,11 @@ class Parser{
             return atom;
           }
       } else if(token == 91){
-        //std::cout << _scanner.position() << '\n';
-        if(_scanner.nextToken() == 93)
-          return new List();
-      } else {
+          vector<Term *> _elements = getElements();
+           return new List(_elements);
+         }
+
+        else {
           Term *term = new Term();
           return term;
         }
@@ -52,10 +53,20 @@ class Parser{
           while((_currentToken = _scanner.nextToken()) == ','){
             args.push_back(createTerm());
           }
+
           return args;
     }
 
+    vector<Term *> getElements(){
+          Term* term = createTerm();
+          vector<Term *> elements;
+          elements.push_back(term);
 
+          while((_currentToken = _scanner.nextToken()) == ','){
+            elements.push_back(createTerm());
+          }
+          return elements;
+    }
   private:
     Scanner _scanner;
 
