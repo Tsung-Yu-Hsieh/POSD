@@ -13,7 +13,7 @@ public:
     _args = args;
   }
 
-  Term *args(int index) {
+  Term * args(int index) {
     return _args[index];
   }
 
@@ -37,6 +37,7 @@ public:
     return ret;
   }
   int arity(){
+
     return _args.size();
   }
 

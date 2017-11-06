@@ -125,9 +125,11 @@ TEST_F(ParserTest, parseVar) {
 // When parser parses all terms via scanner.
 // Then it should return nothing.
 TEST_F(ParserTest, listOfTermsEmpty) {
-  //Scanner scanner();
-  //Parser parser(scanner);
-  //ASSERT_EQ("",parser.createTerm()->symbol());
+  Scanner scanner("");
+  Parser parser(scanner);
+  vector<Term*> terms = parser.getArgs();
+  ASSERT_EQ(0,terms.size());
+  ASSERT_EQ("",parser.createTerm()->symbol());
 }
 
 
