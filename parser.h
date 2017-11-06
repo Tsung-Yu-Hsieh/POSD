@@ -17,7 +17,6 @@ class Parser{
       //std::cout << _scanner.currentChar() << '\n';
 
       int token = _scanner.nextToken();
-
       if(token == VAR) {
         return new Variable(symtable[_scanner.tokenValue()].first);
       } else if(token == NUMBER) {
@@ -33,20 +32,10 @@ class Parser{
             return atom;
           }
       } else if(token == 91){
-         std::cout << _scanner.position() << '\n';
-        if(_scanner.nextToken() == 91){
-          std::cout << _scanner.currentChar() << '\n';
-          std::cout << _scanner.position() << '\n';
-          vector<Term *> _elements = getArgs();
-          if(_currentToken == ']'){
-           return new List(_elements);
-         }
-        }
-        else{
+        //std::cout << _scanner.position() << '\n';
+        if(_scanner.nextToken() == 93)
           return new List();
-        }
-      }
-        else {
+      } else {
           Term *term = new Term();
           return term;
         }
@@ -60,13 +49,9 @@ class Parser{
             return args;
           }
           args.push_back(term);
-          if(_scanner.currentChar() == ']'){
-            _currentToken = _scanner.nextToken();
-          }
           while((_currentToken = _scanner.nextToken()) == ','){
             args.push_back(createTerm());
           }
-
           return args;
     }
 

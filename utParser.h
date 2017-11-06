@@ -138,9 +138,7 @@ TEST_F(ParserTest, listOfTermsEmpty) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "s(s(s(s(1))))".
 TEST_F(ParserTest, parseStructOfStructAllTheWay) {
-  Scanner scanner("s(s(s(s(1))))");
-  Parser parser(scanner);
-  ASSERT_EQ("s(s(s(s(1))))",parser.createTerm()->symbol());
+
 }
 
 
@@ -149,10 +147,7 @@ TEST_F(ParserTest, parseStructOfStructAllTheWay) {
 // Then it should return a List.
 // And #symbol() of List should return "[[1], []]".
 TEST_F(ParserTest, parseListOfLists) {
-  //---------------012345678901234
-  Scanner scanner("   [  [1], [] ]");
-  Parser parser(scanner);
-  ASSERT_EQ("[[1], []]",parser.createTerm()->symbol());
+
 }
 
 
