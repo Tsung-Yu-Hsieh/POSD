@@ -13,7 +13,6 @@ public:
   virtual bool match(Term & a);
   virtual string getName() const{return "Term";}
   Term ():_symbol(""){}
-  
 protected:
   //Term ():_symbol(""){}
   Term (string s):_symbol(s) {}
