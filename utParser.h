@@ -175,14 +175,24 @@ TEST_F(ParserTest, parseListOfListsAndStruct) {
 // Then it should return a List.
 // And #symbol() of List should return "[1, 2]".
 TEST_F(ParserTest, parseList) {
-
+  Scanner scanner("   [1, 2]");
+  Parser parser(scanner);
+  vector<Term *> terms = parser.getArgs();
+  ASSERT_EQ("[1, 2]",terms[0]->symbol());
 }
 
 // Given there is string: "[1,2)" which in scanner.
 // When parser parses all terms via scanner.
 // Then it should return a string: "unexpected token" as exception.
 TEST_F(ParserTest, illegal1) {
-
+  try{
+  //---------------01234
+  Scanner scanner("[1,2)");
+  Parser parser(scanner);
+  vector<Term *> terms = parser.getArgs();
+}catch(string message){
+  EXPECT_EQ(string("unexpected token"),message);
+  }
 }
 
 // Given there is string: ".(1,[])" which in scanner.

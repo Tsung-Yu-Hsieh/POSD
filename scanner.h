@@ -85,6 +85,16 @@ public:
   void backspace(){
     pos--;
   }
+  void frontspace(){
+    pos++;
+  }
+  char frontChar(int pos){
+    return buffer[pos];
+  }
+  int backValue(){
+    pos--;
+    return pos;
+  }
 
 private:
   string buffer;

@@ -33,7 +33,15 @@ class Parser{
           }
       } else if(token == 91){
           vector<Term *> _elements = getArgs();
-
+          std::cout << _scanner.position() << '\n';
+          std::cout << _scanner.currentChar() << '\n';
+          if(_scanner.frontChar(_scanner.backValue()) == ')'){
+            throw string("unexpected token");
+            
+          }
+          else{
+            _scanner.frontspace();
+          }
            return new List(_elements);
          }
 
