@@ -32,7 +32,8 @@ class Parser{
             return atom;
           }
       } else if(token == 91){
-          vector<Term *> _elements = getElements();
+          vector<Term *> _elements = getArgs();
+
            return new List(_elements);
          }
 

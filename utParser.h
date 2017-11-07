@@ -152,7 +152,9 @@ TEST_F(ParserTest, parseListOfLists) {
   //---------------012345678901234
   Scanner scanner("   [  [1], [] ]");
   Parser parser(scanner);
-  ASSERT_EQ("[[1], []]",parser.createTerm()->symbol());
+  vector<Term *> terms = parser.getArgs();
+  ASSERT_EQ("[[1], []]",terms[0]->symbol());
+
 }
 
 
@@ -161,7 +163,11 @@ TEST_F(ParserTest, parseListOfLists) {
 // Then it should return a List.
 // And #symbol() of List should return "[[1], [], s(s(1))]".
 TEST_F(ParserTest, parseListOfListsAndStruct) {
-
+  //---------------012345678901234567890123
+  Scanner scanner("   [  [1], [], s(s(1)) ]   ");
+  Parser parser(scanner);
+  vector<Term *> terms = parser.getArgs();
+  ASSERT_EQ("[[1], [], s(s(1))]",terms[0]->symbol());
 }
 
 // Given there is string: "   [1, 2]" which in scanner.
