@@ -25,6 +25,7 @@ public:
         return ATOM;
       } else if (isSpecialCh(currentChar())) {
         string s = extractAtomSC();
+        std::cout << "/* message */" << '\n';
         processToken<ATOMSC>(s);
         return ATOMSC;
       } else if (isupper(currentChar()) || currentChar() == '_') {
