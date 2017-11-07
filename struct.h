@@ -21,6 +21,10 @@ public:
     return _name;
   }
   string symbol() const {
+    if(arity() == 0){
+      string ret = _name.symbol() + "()";
+      return ret;
+    }
     string ret = _name.symbol() + "(";
     std::vector<Term *>::const_iterator it = _args.begin();
     for (; it != _args.end()-1; ++it)
@@ -36,7 +40,7 @@ public:
     ret  += (*it)->value()+")";
     return ret;
   }
-  int arity(){
+  int arity() const{
     return _args.size();
   }
 

@@ -202,6 +202,9 @@ TEST_F(ParserTest, illegal1) {
 // And #symbol() of Struct should return ".(1, [])".
 // And the first term should be number: "1", the second term should be another List: "[]".
 TEST_F(ParserTest, ListAsStruct) {
+  Scanner scanner(".(1,[])");
+  Parser parser(scanner);
+  vector<Term *> terms = parser.getArgs();
 
 
 }
@@ -233,7 +236,10 @@ TEST_F(ParserTest, parseStructOfStructAllTheWay2) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "point()".
 TEST_F(ParserTest, parseStructNoArg) {
+  Scanner scanner("point()");
+  Parser parser(scanner);
 
+  EXPECT_EQ("point()",parser.createTerm()->symbol());
 }
 
 
