@@ -69,7 +69,6 @@ class Parser{
     }
   private:
     Scanner _scanner;
-
     int _currentToken;
 };
 
