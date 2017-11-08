@@ -204,9 +204,11 @@ TEST_F(ParserTest, illegal1) {
 TEST_F(ParserTest, ListAsStruct) {
   Scanner scanner(".(1,[])");
   Parser parser(scanner);
-  vector<Term *> terms = parser.getArgs();
-
-
+  Struct *s1 = static_cast<Struct*>(parser.createTerm());
+  EXPECT_EQ(".(1, [])",s1->symbol());
+  EXPECT_EQ(2,s1->arity());
+  EXPECT_EQ("1",s1->args(0)->symbol());
+  EXPECT_EQ("[]",s1->args(1)->symbol());
 }
 
 
@@ -217,6 +219,13 @@ TEST_F(ParserTest, ListAsStruct) {
 // And #symbol() of Struct should return ".(2, .(1, []))"
 // And the first term should be number: "2", the second term should be another Strcut: ".(1, [])".
 TEST_F(ParserTest, ListAsStruct2) {
+  Scanner scanner(".(2,.(1,[]))");
+  Parser parser(scanner);
+  Struct *s1 = static_cast<Struct*>(parser.createTerm());
+  EXPECT_EQ(".(2, .(1, []))",s1->symbol());
+  EXPECT_EQ(2,s1->arity());
+  EXPECT_EQ("2",s1->args(0)->symbol());
+  EXPECT_EQ(".(1, [])",s1->args(1)->symbol());
 
 }
 
@@ -227,7 +236,11 @@ TEST_F(ParserTest, ListAsStruct2) {
 // And #symbol() of the first Strcut should return "s(s(s(s(1))))".
 // And #symbol() of the second Strcut should return "b(1, 2, 3)".
 TEST_F(ParserTest, parseStructOfStructAllTheWay2) {
-
+  Scanner scanner("s(s(s(s(1)))), b(1,2,3)");
+  Parser parser(scanner);
+  vector<Term*> terms = parser.getArgs();
+  EXPECT_EQ("s(s(s(s(1))))",terms[0]->symbol());
+  EXPECT_EQ("b(1, 2, 3)",terms[1]->symbol());
 }
 
 
@@ -238,7 +251,6 @@ TEST_F(ParserTest, parseStructOfStructAllTheWay2) {
 TEST_F(ParserTest, parseStructNoArg) {
   Scanner scanner("point()");
   Parser parser(scanner);
-
   EXPECT_EQ("point()",parser.createTerm()->symbol());
 }
 
@@ -247,7 +259,12 @@ TEST_F(ParserTest, parseStructNoArg) {
 // When parser parses all terms via scanner.
 // Then it should return three terms: "12345", "tom" and "Date".
 TEST_F(ParserTest, listOfTermsThree) {
-
+  Scanner scanner(" 12345,  tom,   Date");
+  Parser parser(scanner);
+  vector<Term*> terms = parser.getArgs();
+  EXPECT_EQ("12345",terms[0]->symbol());
+  EXPECT_EQ("tom",terms[1]->symbol());
+  EXPECT_EQ("Date",terms[2]->symbol());
 }
 
 
@@ -256,7 +273,9 @@ TEST_F(ParserTest, listOfTermsThree) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "point(11, 12)".
 TEST_F(ParserTest, parseStructTwoArgs) {
-
+  Scanner scanner("point(11,12)");
+  Parser parser(scanner);
+  EXPECT_EQ("point(11, 12)",parser.createTerm()->symbol());
 }
 
 
@@ -265,7 +284,9 @@ TEST_F(ParserTest, parseStructTwoArgs) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "...(11, 12)".
 TEST_F(ParserTest, parseStructDOTSTwoArgs) {
-
+  Scanner scanner("...(11,12)");
+  Parser parser(scanner);
+  EXPECT_EQ("...(11, 12)",parser.createTerm()->symbol());
 }
 
 
@@ -274,7 +295,9 @@ TEST_F(ParserTest, parseStructDOTSTwoArgs) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "point(11)".
 TEST_F(ParserTest, parseStructOneArg) {
-
+  Scanner scanner("point(11)");
+  Parser parser(scanner);
+  EXPECT_EQ("point(11)",parser.createTerm()->symbol());
 }
 
 #endif

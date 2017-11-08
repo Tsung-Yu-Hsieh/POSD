@@ -57,7 +57,7 @@ class Parser{
                 return new Struct(*atom,terms);
           }
          }else {
-           
+
           Term *term = new Term();
           return term;
         }
@@ -78,16 +78,7 @@ class Parser{
           return args;
     }
 
-  //  vector<Term *> getElements(){
-    //      Term* term = createTerm();
-    //      vector<Term *> elements;
-    //      elements.push_back(term);
 
-    //      while((_currentToken = _scanner.nextToken()) == ','){
-    //        elements.push_back(createTerm());
-  //        }
-  //        return elements;
-  //  }
   private:
     Scanner _scanner;
     int _currentToken;
