@@ -3,16 +3,20 @@
 
 #include "global.h"
 
+
 #include <string>
 #include <vector>
 using std::string;
 using std::vector;
 
-class Scanner{
+class Scanner {
 public:
   Scanner (string in=""):buffer(in), pos(0), _tokenValue(NONE){}
   void setInput(string in) {buffer = in;}
 
+  string bufferReturn() {
+    return buffer;
+  }
   int nextToken() {
       if (skipLeadingWhiteSpace() >= buffer.length())
         return EOS;
@@ -25,7 +29,6 @@ public:
         return ATOM;
       } else if (isSpecialCh(currentChar())) {
         string s = extractAtomSC();
-        std::cout << "/* message */" << '\n';
         processToken<ATOMSC>(s);
         return ATOMSC;
       } else if (isupper(currentChar()) || currentChar() == '_') {
@@ -38,9 +41,7 @@ public:
       }
   }
 
-
   int tokenValue() const {return _tokenValue;}
-
 
   int skipLeadingWhiteSpace() {
     for (; (buffer[pos] == ' ' || buffer[pos] == '\t') && pos<buffer.length(); ++pos);
@@ -48,16 +49,18 @@ public:
   }
 
   int position() const {return pos;}
-
+  void backPosition(int i) { pos = pos-i;}
+  void addPosition(int i){ pos = pos+i;}
   char currentChar() {
     return buffer[pos];
   }
+
+
 
   // extractX: extract X and set position right after X
   int extractNumber() {
     int posBegin = position();
     for (;isdigit(buffer[pos]); ++pos);
-    //std::cout << pos << std::endl;
     return stoi(buffer.substr(posBegin, pos-posBegin));
   }
 
@@ -83,20 +86,6 @@ public:
     return buffer[pos++];
   }
 
-  void backspace(){
-    pos--;
-  }
-  void frontspace(){
-    pos++;
-  }
-  char frontChar(int pos){
-    return buffer[pos];
-  }
-  int backValue(){
-    pos--;
-    return pos;
-  }
-
 private:
   string buffer;
   int pos;
@@ -111,7 +100,6 @@ private:
         _tokenValue = val;
     } else {
       symtable.push_back(pair<string, int>(s,TokenType));
-      //std::cout << TokenType << std::endl;
        _tokenValue = symtable.size()-1; // index to symtable
     }
   }

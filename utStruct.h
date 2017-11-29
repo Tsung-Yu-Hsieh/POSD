@@ -2,8 +2,6 @@
 #include "atom.h"
 #include "variable.h"
 #include "struct.h"
-#include "term.h"
-#include "number.h"
 
 TEST(Struct, hobby)
 {
@@ -101,7 +99,6 @@ TEST(Struct, var_match_atom)
   X.match(tom);
   ASSERT_EQ("s(tom)",s.value());
 }
-
 
 TEST(Struct, var_match_num)
 {
@@ -224,4 +221,17 @@ TEST(Struct, nested_struct_and_multiVariable)
   Y.match(kb);
   ASSERT_EQ("s1(s2(Y), X)",s1.symbol());
   ASSERT_EQ("s1(s2(kent_beck), kent_beck)",s1.value());
+}
+
+//?-s(X)=s(Y).
+//X=Y.
+TEST(Struct, matchWithVar)
+{
+  Variable X("X");
+  Variable Y("Y");
+  std::vector<Term *> v = {&X};
+  Struct s1(Atom("s"), v);
+  std::vector<Term *> v2 = {&Y};
+  Struct s2(Atom("s"), v2);
+  ASSERT_TRUE(s1.match(s2));
 }
