@@ -12,7 +12,11 @@ public:
   Node(Operators op, Term *t, Node *l, Node *r):payload(op), term(t), left(l), right(r) {}
 
   bool evaluate(){
-    if(this->payload == 2){
+    if(this->payload == 0){
+      this->left->left->term->match(*this->left->right->term);
+      this->right->left->term->match(*this->right->right->term);
+    }
+    else if(this->payload == 2){
       if((this->left->term->getName() == "Number") && (this->right->term->getName() == "Number")){
         return false;
       }
@@ -31,12 +35,17 @@ public:
           this->left->left->term->match(*this->left->right->term);
           this->left->left->term->match(*this->right->right->term);
         }
+        else if(this->left->right->term->symbol()=="s(Y)" && this->right->left->term){//X=s(Y), Y=1.?? bad
+            this->left->left->term->match(*this->left->right->term);
+            this->right->left->term->match(*this->right->right->term);
+        }
         else{
         this->left->left->term->match(*this->left->right->term);
         this->right->left->term->match(*this->right->right->term);
         }
-     }
+      }
     }
+
 
  }
 

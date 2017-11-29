@@ -46,12 +46,15 @@ public:
       else if(_currentToken == ','){
         return COMMA;
       }
+      else if(_currentToken == ';'){
+        return SEMICOLON;
+      }
 
   }
 
   void matchings(){
      _terms.push_back(createTerm());
-    while((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',') {
+    while((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',' || _currentToken == ';') {
       _operators.push_back(createOperator());
       _terms.push_back(createTerm());
     }
@@ -88,6 +91,10 @@ public:
     if(_operators[3] == 1){
         _RootNode = new Node(_operators[1],nullptr,lsubTree(),rcsubTree());
         return _RootNode;
+    }
+    if(_operators[1] == 0){
+       _RootNode = new Node(_operators[1],nullptr,lsubTree(),rsubTree());
+       return _RootNode;
     }
     for(vector<Operators>::iterator it = _operators.begin();it!=_operators.end();it++){
 
