@@ -92,10 +92,7 @@ public:
         _RootNode = new Node(_operators[1],nullptr,lsubTree(),rcsubTree());
         return _RootNode;
     }
-    if(_operators[1] == 0){
-       _RootNode = new Node(_operators[1],nullptr,lsubTree(),rsubTree());
-       return _RootNode;
-    }
+
     for(vector<Operators>::iterator it = _operators.begin();it!=_operators.end();it++){
 
       if(*it == 2){
