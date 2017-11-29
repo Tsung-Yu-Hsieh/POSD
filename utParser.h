@@ -197,26 +197,26 @@ TEST_F(ParserTest, createTerm_ListAsStruct2) {
   EXPECT_EQ(".(1, [])", s->symbol());
 }
 
-// TEST_F(ParserTest, OneMatching) {
-//   Scanner scanner("X=1.");
-//   Parser parser(scanner);
-//   parser.matchings();
-//   vector<Term *> terms = parser.getTerms();
-//   EXPECT_EQ(2, terms.size());
-//   EXPECT_EQ("X", terms[0]->symbol());
-//   EXPECT_EQ("1", terms[1]->symbol());
-//   EXPECT_NE("1", terms[0]->value());
-//   vector<Operators> Operator = parser.getOperators();
-//   EXPECT_EQ(1, Operator.size());
-//   EXPECT_EQ(2, Operator[0]);
+TEST_F(ParserTest, OneMatching) {
+  Scanner scanner("X=1.");
+  Parser parser(scanner);
+  parser.matchings();
+  vector<Term *> terms = parser.getTerms();
+  EXPECT_EQ(2, terms.size());
+  EXPECT_EQ("X", terms[0]->symbol());
+  EXPECT_EQ("1", terms[1]->symbol());
+  EXPECT_NE("1", terms[0]->value());
+  vector<Operators> Operator = parser.getOperators();
+  EXPECT_EQ(1, Operator.size());
+  EXPECT_EQ(2, Operator[0]);
 
-//     Node * et = parser.expressionTree();
-//     EXPECT_EQ(EQUALITY, et->payload);
+    Node * et = parser.expressionTree();
+    EXPECT_EQ(EQUALITY, et->payload);
 
-//     EXPECT_TRUE(et->evaluate());
+    EXPECT_TRUE(et->evaluate());
 
-//     EXPECT_EQ("1", terms[0]->value());
-// }
+    EXPECT_EQ("1", terms[0]->value());
+}
 
 TEST_F(ParserTest, OneMatchingFalse) {
   Scanner scanner("1=2.");
@@ -363,7 +363,7 @@ TEST_F(ParserTest, TwoVariableMatching4) {
   EXPECT_EQ(EQUALITY, et->right->payload);
   EXPECT_EQ("Y", et->right->left->term->symbol());
   EXPECT_EQ("1", et->right->right->term->symbol());
-  
+
   // EXPECT_EQ("X", terms[0]->symbol());
   // EXPECT_EQ("s(1)", terms[0]->value());
   // EXPECT_EQ("s(1)", terms[1]->value());
@@ -421,7 +421,7 @@ TEST_F(ParserTest, DisjTwoMatchingSuccess) {
   EXPECT_EQ("2", et->right->right->term->symbol());
 
   EXPECT_TRUE(et->evaluate());
-
+  
   EXPECT_EQ("1", terms[0]->value());
   EXPECT_EQ("2", terms[2]->value());
 }
