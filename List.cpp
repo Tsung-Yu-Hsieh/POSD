@@ -1,6 +1,7 @@
 #include "list.h"
 #include "variable.h"
 #include "number.h"
+#include "iterator.h"
 #include <typeinfo>
 #include <iostream>
 
@@ -84,4 +85,8 @@ List * List::tail() const{
  }
 void List::set(vector<Term *> const & elements){
   _elements = elements;
+}
+
+Iterator* List::createIterator(){
+  return new ListIterator(this);
 }

@@ -53,60 +53,19 @@ public:
   }
 
   void matchings(){
-     _terms.push_back(createTerm());
+     _operand.push(createTerm());
     while((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',' || _currentToken == ';') {
-      _operators.push_back(createOperator());
-      _terms.push_back(createTerm());
+      _operators.push(createTerm());
+      _operand.push(createTerm());
     }
+    _RootNode->left = _operand.top();
+    _operand.pop();
 
   }
-  Node* lsubTree(){
-    Node* _leftNode = new Node(TERM,_terms[0],nullptr,nullptr);
-    Node* _rightNode = new Node(TERM,_terms[1],nullptr,nullptr);
-    Node* _rootNode = new Node(_operators[0],nullptr,_leftNode,_rightNode);
 
-    return _rootNode;
-  }
-  Node* rsubTree(){
-    Node* _leftNode = new Node(TERM,_terms[2],nullptr,nullptr);
-    Node* _rightNode = new Node(TERM,_terms[3],nullptr,nullptr);
-    Node* _rootNode = new Node(_operators[0],nullptr,_leftNode,_rightNode);
 
-    return _rootNode;
-  }
-  Node* rsubTree1(){
-    Node* _leftNode = new Node(TERM,_terms[4],nullptr,nullptr);
-    Node* _rightNode = new Node(TERM,_terms[5],nullptr,nullptr);
-    Node* _rootNode = new Node(_operators[0],nullptr,_leftNode,_rightNode);
-
-    return _rootNode;
-  }
-  Node* rcsubTree(){
-    Node* _leftNode = rsubTree();
-    Node* _rightNode = rsubTree1();
-    Node* _rootNode = new Node(_operators[1],nullptr,_leftNode,_rightNode);
-    return _rootNode;
-  }
   Node* expressionTree(){
-    if(_operators[3] == 1){
-        _RootNode = new Node(_operators[1],nullptr,lsubTree(),rcsubTree());
-        return _RootNode;
-    }
 
-    for(vector<Operators>::iterator it = _operators.begin();it!=_operators.end();it++){
-
-      if(*it == 2){
-        if(*(++it) == 1){
-          _RootNode = new Node(_operators[1],nullptr,lsubTree(),rsubTree());
-
-        }
-        else{
-        _RootNode = lsubTree();
-        }
-        return _RootNode;
-      }
-
-    }
 
   }
 
@@ -163,12 +122,14 @@ private:
   }
 
   vector<Term *> _terms;
-  vector<Operators > _operators;
+  //vector<Operators > _operators;
   Scanner _scanner;
   Scanner _scanner1;
   Scanner _scanner2;
   int _currentToken;
   int _currentToken1;
+  stack<Term *> _operand;
+  stack<Term *> _operators;
   Node* _RootNode;
 
 };
