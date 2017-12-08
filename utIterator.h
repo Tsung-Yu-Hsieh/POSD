@@ -14,7 +14,7 @@ TEST(iterator, first) {
     Struct t(Atom("t"), { &X, &two });
     Struct s(Atom("s"), { &one, &t, &Y });
     //StructIterator it(&s);
-    Iterator *itStruct = s.createIterator();
+    Iterator<Term*> *itStruct = s.createIterator();
 
     // Iterator& itStruct = it;
     // ASSERT_EQ(it.first()->symbol());
@@ -61,7 +61,7 @@ TEST(iterator, firstList) {
     Number two(2);
     Struct t(Atom("t"), { &X, &two });
     List l({ &one, &t, &Y });
-    Iterator *itList = l.createIterator();
+    Iterator<Term*> *itList = l.createIterator();
     //ListIterator it(&l);
     //Iterator* itList = &it;
      itList->first();
@@ -81,16 +81,58 @@ TEST(iterator, NullIterator){
   NullIterator nullIterator(&one);
   nullIterator.first();
   ASSERT_TRUE(nullIterator.isDone());
-  Iterator * it = one.createIterator();
+  Iterator<Term*> * it = one.createIterator();
   it->first();
   ASSERT_TRUE(it->isDone());
 }
 
 TEST(iterator, DFSStructIterator_data1){
-  Scanner scanner("combo1(bigMac(bun, beefPatty, sherddedLettuce, sauce, [pickeSlice1, pickeSlice2]), coke, [fries1, fries2])");
-  Parser parser(scanner);
-  // parser.matchings();
-  // Node * et = parser.expressionTree();
+  Atom bun("bun");
+  Atom beefPatty("beffPatty");
+  Atom shreddedLettuce("shreddedLettuce");
+  Atom pickleSlice1("pickleSlice1");
+  Atom pickleSlice2("pickleSlice2");
+  Atom onion1("onion1");
+  Atom onion2("onion2");
+  Atom coke("coke");
+  Atom fries1("fries1");
+  Atom fries2("fries2");
+  List l({&pickleSlice1, &pickleSlice2});
+  List u({&onion1, &onion2});
+  List v({&fries1, &fries2});
+  Struct bigMac(Atom("bigMac"),{&bun, &beefPatty, &shreddedLettuce, &l, &u});
+  Struct combo1(Atom("combo1"),{&bigMac, &coke, &v});
+  Iterator<Term*> *dfsIt = combo1.createDFSIterator();
+  // dfsIt->first();
+  // EXPECT_EQ("bigMac", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // EXPECT_EQ("bun", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("beefPatty", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("shreddedLettuce", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("[]", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("pickleSlice1", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("pickleSlice2", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("[]", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("onion1", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("onion2", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("coke", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("[]", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("fries1", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_EQ("fries2", dfsIt->currentItem()->symbol());
+  // dfsIt->next();
+  // ASSERT_TRUE(dfsIt->isDone());
 }
 TEST(iterator, DFSStructIterator_data2){
 

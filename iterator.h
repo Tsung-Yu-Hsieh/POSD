@@ -6,15 +6,23 @@
 #include "struct.h"
 #include "node.h"
 #include <stack>
+
+using namespace std;
+
+
+
+template <class T>
 class Iterator {
 public:
   virtual void first() = 0;
   virtual void next() = 0;
   virtual Term* currentItem() const = 0;
   virtual bool isDone() const = 0;
+  //virtual void set(int, T);
 };
-using namespace std;
-class NullIterator :public Iterator{
+
+
+class NullIterator :public Iterator <Term*> {
 public:
   NullIterator(Term *n){}
   void first(){}
@@ -28,7 +36,8 @@ public:
 
 };
 
-class StructIterator :public Iterator {
+
+class StructIterator :public Iterator <Term*>  {
 public:
   friend class Struct;
   StructIterator(Struct *s): _index(0), _s(s) {}
@@ -53,7 +62,8 @@ private:
   Struct* _s;
 };
 
-class ListIterator :public Iterator {
+
+class ListIterator :public Iterator <Term*> {
 public:
   ListIterator(List *list): _index(0), _list(list) {}
 
@@ -93,32 +103,35 @@ private:
 //   int _index;
 //   Struct* _s;
 // };
-class DFSIterator : public Iterator{
+
+
+class DFSIterator : public Iterator <Term*> {
 public:
-  friend class Node;
+  friend class Struct;
+  friend class List;
 
-  void first(){
-    term = _root->term;
-    _s.push(_root);
+  void first() {
+    _index = 0;
   }
-  void next(){
 
-
-
+  Term* currentItem() const {
+    return _s->args(_index);
   }
-  Term* currentItem() const{
-    return term;
+
+  bool isDone() const {
+    return _index >= _s->arity();
   }
-  bool isDone() const{
-    if(_s.empty())
-     return true;
-    else
-     return false;
+
+  void next() {
+    _index++;
   }
 private:
- DFSIterator(Node *root): _root(root) {}
- Node * _root;
- Term * term;
- stack<Node *> _s;
+  DFSIterator(Struct *s): _index(0), _s(s) {}
+  DFSIterator(List *l): _index(0), _l(l) {}
+  int _index;
+  Struct* _s;
+  List* _l;
+
 };
+
 #endif

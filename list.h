@@ -12,7 +12,9 @@ public:
   string value() const;
   bool match(Term & term);
   string getName() const;
-  Iterator* createIterator();
+  Iterator<Term*> * createIterator();
+  Iterator<Term*> * createDFSIterator();
+//  Iterator* createBFSIterator();
 public:
   List (): _elements() {}
   List (vector<Term *> const & elements);//:_elements(elements){}

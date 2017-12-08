@@ -5,14 +5,16 @@
 #include <sstream>
 using std::string;
 
+template <class T>
 class Iterator;
+
 class Term{
   friend class Parser;
 public:
   virtual string symbol() const {return _symbol;}
   virtual string value() const {return symbol();}
   virtual bool match(Term & a);
-  virtual Iterator * createIterator();
+  virtual Iterator<Term*> * createIterator();
   virtual string getName() const{return "Term";}
   Term ():_symbol(""){}
 protected:

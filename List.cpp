@@ -87,6 +87,14 @@ void List::set(vector<Term *> const & elements){
   _elements = elements;
 }
 
-Iterator* List::createIterator(){
+Iterator<Term*> * List::createIterator(){
   return new ListIterator(this);
 }
+
+Iterator<Term*> * List::createDFSIterator(){
+    return new DFSIterator(this);
+}
+
+// Iterator * List::createBFSIterator(){
+//     return new BFSIterator(this);
+// }

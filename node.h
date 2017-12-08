@@ -12,7 +12,7 @@ public:
 
   bool evaluate();
 
-  Iterator * createDFSIterator();
+
 
 
 
