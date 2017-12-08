@@ -1,11 +1,10 @@
 #ifndef UTITERATOR_H
 #define UTITERATOR_H
 
-#include "struct.h"
-#include "list.h"
 #include "number.h"
 #include "variable.h"
 #include "iterator.h"
+#include "parser.h"
 
 TEST(iterator, first) {
     Number one(1);
@@ -87,7 +86,31 @@ TEST(iterator, NullIterator){
   ASSERT_TRUE(it->isDone());
 }
 
-TEST(iterator, Aggregate){
+TEST(iterator, DFSStructIterator_data1){
+  Scanner scanner("combo1(bigMac(bun, beefPatty, sherddedLettuce, sauce, [pickeSlice1, pickeSlice2]), coke, [fries1, fries2])");
+  Parser parser(scanner);
+  // parser.matchings();
+  // Node * et = parser.expressionTree();
+}
+TEST(iterator, DFSStructIterator_data2){
+
+}
+TEST(iterator, DFSListIterator_data1){
+
+}
+TEST(iterator, DFSListIterator_data2){
+
+}
+TEST(iterator, BFSStructIterator_data1){
+
+}
+TEST(iterator, BFSStructIterator_data2){
+
+}
+TEST(iterator, BFSListIterator_data1){
+
+}
+TEST(iterator, BFSListIterator_data2){
 
 }
 

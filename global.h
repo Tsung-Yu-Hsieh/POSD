@@ -17,6 +17,7 @@ const int ATOM = 257;
 const int ATOMSC = 258;
 const int VAR = 259;
 
+
 #include <vector>
 using std::vector;
 

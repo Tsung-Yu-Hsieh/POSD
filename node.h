@@ -1,8 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 #include <typeinfo>
-#include "parser.h"
-#include "scanner.h"
+#include "atom.h"
 enum Operators {SEMICOLON, COMMA, EQUALITY, TERM};
 
 class Node {
@@ -11,9 +10,10 @@ public:
   Operators payload;
   Node(Operators op, Term *t, Node *l, Node *r):payload(op), term(t), left(l), right(r) {}
 
-  bool evaluate(){
+  bool evaluate();
 
- }
+  Iterator * createDFSIterator();
+
 
 
   Term *term;

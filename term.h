@@ -7,6 +7,7 @@ using std::string;
 
 class Iterator;
 class Term{
+  friend class Parser;
 public:
   virtual string symbol() const {return _symbol;}
   virtual string value() const {return symbol();}

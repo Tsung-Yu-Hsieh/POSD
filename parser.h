@@ -1,5 +1,6 @@
 #ifndef PARSER_H
 #define PARSER_H
+#include <sstream>
 #include <string>
 using std::string;
 
@@ -12,7 +13,9 @@ using std::string;
 #include "number.h"
 #include "utParser.h"
 #include "node.h"
-
+#include <stack>
+stringstream ss;
+using namespace std;
 class Parser{
 public:
   Parser(Scanner scanner) : _scanner(scanner), _scanner1(scanner),_scanner2(scanner), _terms(){}
@@ -37,6 +40,7 @@ public:
     }
 
 
+
     return nullptr;
   }
   Operators createOperator(){
@@ -51,22 +55,77 @@ public:
       }
 
   }
-
-  void matchings(){
-     _operand.push(createTerm());
-    while((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',' || _currentToken == ';') {
-      _operators.push(createTerm());
-      _operand.push(createTerm());
+  Term* createOperators(){
+    if(_currentToken == '='){
+      return new Term("=");
     }
-    _RootNode->left = _operand.top();
-    _operand.pop();
-
+    else if(_currentToken == ','){
+      return new Term(",");
+    }
+    else if(_currentToken == ';'){
+      return new Term(";");
+    }
   }
 
 
+  void matchings(){
+     _terms.push_back(createTerm());
+    while((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',' || _currentToken == ';') {
+      _operatorst.push_back(createOperators());
+      _operators.push_back(createOperator());
+      _terms.push_back(createTerm());
+    }
+    for(int i=0;i<_terms.size();i++){
+      _s.push(_terms[i]);
+    }
+    for(int i=0;i<_operatorst.size();i++){
+      _t.push(_operatorst[i]);
+      _u.push(_operators[i]);
+    }
+  }
+
+  Node* smallTree(){
+      Node* _rightNode = new Node(TERM,_s.top(),nullptr,nullptr);
+      _s.pop();
+      Node* _leftNode = new Node(TERM,_s.top(),nullptr,nullptr);
+      _s.pop();
+      Node* _rootNode = new Node(_u.top(),_t.top(),_leftNode,_rightNode);
+      _t.pop();
+      _u.pop();
+
+      return _rootNode;
+  }
+
+  Node* mediumTree(){
+    Node* _rightNode1 = smallTree();
+    Node* _rootNode1 = new Node(_u.top(),_t.top(),nullptr,_rightNode1);
+    _t.pop();
+    Node* _leftNode1 = smallTree();
+    _rootNode1->left = _leftNode1;
+    return _rootNode1;
+  }
+  Node* bigTree(){
+    Node* _rightNode1 = mediumTree();
+    Node* _rootNode1 = new Node(_u.top(),_t.top(),nullptr,_rightNode1);
+    _t.pop();
+    Node* _leftNode1 = smallTree();
+    _rootNode1->left = _leftNode1;
+    return _rootNode1;
+  }
+
   Node* expressionTree(){
-
-
+    if(_t.size() == 1){
+      _RootNode = smallTree();
+      return _RootNode;
+    }
+    else if(_t.size() == 3){
+      _RootNode = mediumTree();
+      return _RootNode;
+    }
+    else{
+      _RootNode = bigTree();
+      return _RootNode;
+    }
   }
 
 
@@ -122,15 +181,17 @@ private:
   }
 
   vector<Term *> _terms;
-  //vector<Operators > _operators;
+  vector<Term *> _operatorst;
+  vector<Operators > _operators;
   Scanner _scanner;
   Scanner _scanner1;
   Scanner _scanner2;
   int _currentToken;
   int _currentToken1;
-  stack<Term *> _operand;
-  stack<Term *> _operators;
   Node* _RootNode;
+  stack <Term*> _s;
+  stack <Term*> _t;
+  stack <Operators> _u;
 
 };
 #endif

@@ -4,9 +4,3 @@ Iterator * Struct::createIterator()
 {
   return new StructIterator(this);
 }
-Iterator * Struct::createBFSIterator(){
-  return new BFSIterator(this);
-}
-Iterator * Struct::createDFSIterator(){
-  return new DFSIterator(this);
-}

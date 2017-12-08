@@ -1,10 +1,11 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-
+#include <iostream>
 #include "list.h"
 #include "struct.h"
-
+#include "node.h"
+#include <stack>
 class Iterator {
 public:
   virtual void first() = 0;
@@ -12,7 +13,7 @@ public:
   virtual Term* currentItem() const = 0;
   virtual bool isDone() const = 0;
 };
-
+using namespace std;
 class NullIterator :public Iterator{
 public:
   NullIterator(Term *n){}
@@ -76,36 +77,48 @@ private:
   List* _list;
 };
 
-class BFSIterator : public Iterator{
-public:
-  friend class Struct;
-  void first(){}
-  void next(){}
-  Term* currentItem() const{
-    return nullptr;
-  }
-  bool isDone() const{
-     return true;
-  }
- private:
-  BFSIterator(Struct *s): _index(0), _s(s) {}
-  int _index;
-  Struct* _s;
-};
+// class BFSIterator : public Iterator{
+// public:
+//   friend class Struct;
+//   void first(){}
+//   void next(){}
+//   Term* currentItem() const{
+//     return nullptr;
+//   }
+//   bool isDone() const{
+//      return true;
+//   }
+//  private:
+//   BFSIterator(Struct *s): _index(0), _s(s) {}
+//   int _index;
+//   Struct* _s;
+// };
 class DFSIterator : public Iterator{
 public:
-  friend class Struct;
-  void first(){}
-  void next(){}
+  friend class Node;
+
+  void first(){
+    term = _root->term;
+    _s.push(_root);
+  }
+  void next(){
+
+
+
+  }
   Term* currentItem() const{
-    return nullptr;
+    return term;
   }
   bool isDone() const{
+    if(_s.empty())
      return true;
+    else
+     return false;
   }
 private:
- DFSIterator(Struct *s): _index(0), _s(s) {}
- int _index;
- Struct* _s;
+ DFSIterator(Node *root): _root(root) {}
+ Node * _root;
+ Term * term;
+ stack<Node *> _s;
 };
 #endif
