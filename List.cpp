@@ -9,11 +9,16 @@ using namespace std;
 string List::getName() const{
   return "List";
 }
+
 List::List(vector<Term *> const & elements){
   _elements = elements;
 }
 Term * List::elements(int index) const{
   return _elements[index];
+}
+Atom * List::name() const{
+  Atom *a = new Atom("[]");
+  return a;
 }
 
 
@@ -95,6 +100,6 @@ Iterator<Term*> * List::createDFSIterator(){
     return new DFSIterator(this);
 }
 
-// Iterator * List::createBFSIterator(){
-//     return new BFSIterator(this);
-// }
+Iterator<Term*> * List::createBFSIterator(){
+    return new BFSIterator(this);
+}

@@ -2,7 +2,7 @@
 #define LIST_H
 
 #include "term.h"
-
+#include "atom.h"
 #include <vector>
 using std::vector;
 
@@ -12,9 +12,10 @@ public:
   string value() const;
   bool match(Term & term);
   string getName() const;
+  Atom * name() const;
   Iterator<Term*> * createIterator();
   Iterator<Term*> * createDFSIterator();
-//  Iterator* createBFSIterator();
+  Iterator<Term*> * createBFSIterator();
 public:
   List (): _elements() {}
   List (vector<Term *> const & elements);//:_elements(elements){}

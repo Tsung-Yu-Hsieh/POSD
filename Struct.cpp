@@ -10,6 +10,6 @@ Iterator<Term*> * Struct::createDFSIterator(){
     return new DFSIterator(this);
 }
 
-// Iterator * Struct::createBFSIterator(){
-//     return new BFSIterator(this);
-// }
+Iterator<Term*> * Struct::createBFSIterator(){
+    return new BFSIterator(this);
+}
