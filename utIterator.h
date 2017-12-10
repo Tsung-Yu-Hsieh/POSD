@@ -283,7 +283,52 @@ TEST(iterator, DFSListIterator_data2){
   ASSERT_TRUE(dfsIt->isDone());
 }
 TEST(iterator, BFSStructIterator_data1){
-
+  Atom bun("bun");
+  Atom beefPatty("beefPatty");
+  Atom shreddedLettuce("shreddedLettuce");
+  Atom pickleSlice1("pickleSlice1");
+  Atom pickleSlice2("pickleSlice2");
+  Atom onion1("onion1");
+  Atom onion2("onion2");
+  Atom coke("coke");
+  Atom fries1("fries1");
+  Atom fries2("fries2");
+  List l({&pickleSlice1, &pickleSlice2});
+  List u({&onion1, &onion2});
+  List v({&fries1, &fries2});
+  Struct bigMac(Atom("bigMac"),{&bun, &beefPatty, &shreddedLettuce, &l, &u});
+  Struct combo1(Atom("combo1"),{&bigMac, &coke, &v});
+  Iterator<Term*> *bfsIt = combo1.createBFSIterator();
+  bfsIt->first();
+  ASSERT_EQ("bigMac", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("coke", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("[]", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("bun", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("beefPatty", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("shreddedLettuce", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("[]", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("[]", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("fries1", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("fries2", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("pickleSlice1", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("pickleSlice2", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("onion1", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_EQ("onion2", bfsIt->currentItem()->symbol());
+  bfsIt->next();
+  ASSERT_TRUE(bfsIt->isDone());
 }
 TEST(iterator, BFSStructIterator_data2){
 

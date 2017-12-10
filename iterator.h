@@ -6,6 +6,7 @@
 #include "struct.h"
 #include "node.h"
 #include <stack>
+#include <queue>
 #include <vector>
 using namespace std;
 
@@ -92,21 +93,49 @@ public:
   friend class Struct;
   friend class List;
   void BFS(Term* t,int index){
+    queue<Term*> q;
+      q.push(t);
+      while(!q.empty()){
+        Term* t = q.front();
+        Struct *s = dynamic_cast<Struct *>(t);
+        List *l  = dynamic_cast<List *>(t);
+        Atom *a = dynamic_cast<Atom *>(t);
+        if(s){
+          v.push_back(&s->name());
+          Iterator<Term*> *it = s->createIterator();
+          for(it->first();!it->isDone();it->next()){
+             q.push(it->currentItem());
+          }
+          q.pop();
+        }
+        else if(l){
+          v.push_back(l->name());
+          Iterator<Term*> *it = l->createIterator();
+          for(it->first();!it->isDone();it->next()){
+             q.push(it->currentItem());
+          }
+          q.pop();
+        }
+        else if(a){
+          v.push_back(a);
+          q.pop();
+        }
+    }
 
   }
   void first() {
     if(e == 0){
-    for(int i=0;i<_s->arity();i++)
-     BFS(_s->args(i),_index);
-    _index = 0;
+     BFS(_s,_index);
+    _index = 1;
      }
     if(e == 1){
-       std::cout << "/* message */" << '\n';
-       for(int i=0;i<_l->arity();i++)
-        BFS(_l->elements(i),_index);
-       _index = 0;
+        BFS(_l,_index);
+       _index = 1;
      }
-
+    for(int i=0;i<v.size();i++){
+      std::cout << "v[" << i << "] :";
+     std::cout << v[i]->symbol() << '\n';
+   }
   }
 
   Term* currentItem() const {
