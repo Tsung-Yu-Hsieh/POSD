@@ -101,23 +101,22 @@ public:
         List *l  = dynamic_cast<List *>(t);
         Atom *a = dynamic_cast<Atom *>(t);
         if(s){
-          v.push_back(&s->name());
           Iterator<Term*> *it = s->createIterator();
           for(it->first();!it->isDone();it->next()){
+             v.push_back(it->currentItem());
              q.push(it->currentItem());
           }
           q.pop();
         }
         else if(l){
-          v.push_back(l->name());
           Iterator<Term*> *it = l->createIterator();
           for(it->first();!it->isDone();it->next()){
+             v.push_back(it->currentItem());
              q.push(it->currentItem());
           }
           q.pop();
         }
         else if(a){
-          v.push_back(a);
           q.pop();
         }
     }
@@ -126,11 +125,11 @@ public:
   void first() {
     if(e == 0){
      BFS(_s,_index);
-    _index = 1;
+    _index = 0;
      }
     if(e == 1){
         BFS(_l,_index);
-       _index = 1;
+       _index = 0;
      }
     for(int i=0;i<v.size();i++){
       std::cout << "v[" << i << "] :";
@@ -167,48 +166,48 @@ public:
   friend class List;
 
   void DFS(Term* t,int index){
-    Struct *s = dynamic_cast<Struct *>(t);
-    List *l  = dynamic_cast<List *>(t);
-    Atom *a = dynamic_cast<Atom *>(t);
-
-    if(s){
-      v.push_back(&s->name());
-      Iterator<Term *> *it = s->createIterator();
-      for(it->first();!it->isDone();it->next()){
-        v.push_back(it->currentItem());
-        List *l =  dynamic_cast<List *>(it->currentItem());
-        Struct *s = dynamic_cast<Struct *>(it->currentItem());
-        if(l){
-          v.pop_back();
-          DFS(l,0);
-        }
-        else if(s){
-          v.pop_back();
-          DFS(s,0);
-        }
-
-      }
-    }
-    else if(l){
-      v.push_back(l->name());
-      Iterator<Term *> *it = l->createIterator();
-      for(it->first();!it->isDone();it->next()){
-        v.push_back(it->currentItem());
-        List *l =  dynamic_cast<List *>(it->currentItem());
-        Struct *s = dynamic_cast<Struct *>(it->currentItem());
-        if(l){
-          v.pop_back();
-          DFS(l,0);
-        }
-        else if(s){
-          v.pop_back();
-          DFS(s,0);
-        }
-      }
-    }
-    else if(a){
-      v.push_back(a);
-    }
+    // Struct *s = dynamic_cast<Struct *>(t);
+    // List *l  = dynamic_cast<List *>(t);
+    // Atom *a = dynamic_cast<Atom *>(t);
+    //
+    // if(s){
+    //   v.push_back(&s->name());
+    //   Iterator<Term *> *it = s->createIterator();
+    //   for(it->first();!it->isDone();it->next()){
+    //     v.push_back(it->currentItem());
+    //     List *l =  dynamic_cast<List *>(it->currentItem());
+    //     Struct *s = dynamic_cast<Struct *>(it->currentItem());
+    //     if(l){
+    //       v.pop_back();
+    //       DFS(l,0);
+    //     }
+    //     else if(s){
+    //       v.pop_back();
+    //       DFS(s,0);
+    //     }
+    //
+    //   }
+    // }
+    // else if(l){
+    //   v.push_back(l->name());
+    //   Iterator<Term *> *it = l->createIterator();
+    //   for(it->first();!it->isDone();it->next()){
+    //     v.push_back(it->currentItem());
+    //     List *l =  dynamic_cast<List *>(it->currentItem());
+    //     Struct *s = dynamic_cast<Struct *>(it->currentItem());
+    //     if(l){
+    //       v.pop_back();
+    //       DFS(l,0);
+    //     }
+    //     else if(s){
+    //       v.pop_back();
+    //       DFS(s,0);
+    //     }
+    //   }
+    // }
+    // else if(a){
+    //   v.push_back(a);
+    // }
 
   }
   void first() {
