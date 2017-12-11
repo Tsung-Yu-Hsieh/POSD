@@ -8,6 +8,8 @@
 #include <stack>
 #include <queue>
 #include <vector>
+#include "number.h"
+#include "variable.h"
 using namespace std;
 
 
@@ -100,6 +102,8 @@ public:
         Struct *s = dynamic_cast<Struct *>(t);
         List *l  = dynamic_cast<List *>(t);
         Atom *a = dynamic_cast<Atom *>(t);
+        Number *n = dynamic_cast<Number *>(t);
+        Variable *var = dynamic_cast<Variable *>(t);
         if(s){
           Iterator<Term*> *it = s->createIterator();
           for(it->first();!it->isDone();it->next()){
@@ -116,7 +120,7 @@ public:
           }
           q.pop();
         }
-        else if(a){
+        else if(a || n || var){
           q.pop();
         }
     }
@@ -166,48 +170,50 @@ public:
   friend class List;
 
   void DFS(Term* t,int index){
-    // Struct *s = dynamic_cast<Struct *>(t);
-    // List *l  = dynamic_cast<List *>(t);
-    // Atom *a = dynamic_cast<Atom *>(t);
-    //
-    // if(s){
-    //   v.push_back(&s->name());
-    //   Iterator<Term *> *it = s->createIterator();
-    //   for(it->first();!it->isDone();it->next()){
-    //     v.push_back(it->currentItem());
-    //     List *l =  dynamic_cast<List *>(it->currentItem());
-    //     Struct *s = dynamic_cast<Struct *>(it->currentItem());
-    //     if(l){
-    //       v.pop_back();
-    //       DFS(l,0);
-    //     }
-    //     else if(s){
-    //       v.pop_back();
-    //       DFS(s,0);
-    //     }
-    //
-    //   }
-    // }
-    // else if(l){
-    //   v.push_back(l->name());
-    //   Iterator<Term *> *it = l->createIterator();
-    //   for(it->first();!it->isDone();it->next()){
-    //     v.push_back(it->currentItem());
-    //     List *l =  dynamic_cast<List *>(it->currentItem());
-    //     Struct *s = dynamic_cast<Struct *>(it->currentItem());
-    //     if(l){
-    //       v.pop_back();
-    //       DFS(l,0);
-    //     }
-    //     else if(s){
-    //       v.pop_back();
-    //       DFS(s,0);
-    //     }
-    //   }
-    // }
-    // else if(a){
-    //   v.push_back(a);
-    // }
+    Struct *s = dynamic_cast<Struct *>(t);
+    List *l  = dynamic_cast<List *>(t);
+    Atom *a = dynamic_cast<Atom *>(t);
+    Number *n = dynamic_cast<Number *>(t);
+    Variable *var = dynamic_cast<Variable *>(t);
+
+    if(s){
+      v.push_back(s);
+      Iterator<Term *> *it = s->createIterator();
+      for(it->first();!it->isDone();it->next()){
+        v.push_back(it->currentItem());
+        List *l =  dynamic_cast<List *>(it->currentItem());
+        Struct *s = dynamic_cast<Struct *>(it->currentItem());
+        if(l){
+          v.pop_back();
+          DFS(l,0);
+        }
+        else if(s){
+          v.pop_back();
+          DFS(s,0);
+        }
+
+      }
+    }
+    else if(l){
+      v.push_back(l);
+      Iterator<Term *> *it = l->createIterator();
+      for(it->first();!it->isDone();it->next()){
+        v.push_back(it->currentItem());
+        List *l =  dynamic_cast<List *>(it->currentItem());
+        Struct *s = dynamic_cast<Struct *>(it->currentItem());
+        if(l){
+          v.pop_back();
+          DFS(l,0);
+        }
+        else if(s){
+          v.pop_back();
+          DFS(s,0);
+        }
+      }
+    }
+    else if(a || n || var){
+      v.push_back(t);
+    }
 
   }
   void first() {
