@@ -10,6 +10,10 @@ string List::getName() const{
   return "List";
 }
 
+List* List::getList(){
+  return this;
+}
+
 List::List(vector<Term *> const & elements){
   _elements = elements;
 }
@@ -76,6 +80,7 @@ Term * List::head() const{
   else{
   return _elements[0];
    }
+
 }
 List * List::tail() const{
    if(this->value()=="[]"){
@@ -87,19 +92,24 @@ List * List::tail() const{
   List* list = new List(_elements1);
   return list;
    }
+
  }
-void List::set(vector<Term *> const & elements){
+void List::set(vector<Term *> const & elements)
+{
   _elements = elements;
 }
 
-Iterator<Term*> * List::createIterator(){
+Iterator<Term*> * List::createIterator()
+{
   return new ListIterator(this);
 }
 
-Iterator<Term*> * List::createDFSIterator(){
+Iterator<Term*> * List::createDFSIterator()
+{
     return new DFSIterator(this);
 }
 
-Iterator<Term*> * List::createBFSIterator(){
+Iterator<Term*> * List::createBFSIterator()
+{
     return new BFSIterator(this);
 }

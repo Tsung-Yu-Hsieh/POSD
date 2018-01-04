@@ -2,6 +2,7 @@
 #define PARSER_H
 #include <sstream>
 #include <string>
+#include <map>
 using std::string;
 
 #include "atom.h"
@@ -14,8 +15,10 @@ using std::string;
 #include "utParser.h"
 #include "node.h"
 #include <stack>
-stringstream ss;
+#include "exp.h"
+//stringstream ss;
 using namespace std;
+
 class Parser{
 public:
   Parser(Scanner scanner) : _scanner(scanner), _scanner1(scanner),_scanner2(scanner), _terms(){}
@@ -24,7 +27,20 @@ public:
     int token = _scanner.nextToken();
     _currentToken = token;
     if(token == VAR){
-      return new Variable(symtable[_scanner.tokenValue()].first);
+      if(_scanner.currentChar1() == ';'){
+        return new Variable(symtable[_scanner.tokenValue()].first);
+      }
+      l_it = _mapv.find(symtable[_scanner.tokenValue()].first);
+      if(l_it == _mapv.end()) {
+        Variable * v = new Variable(symtable[_scanner.tokenValue()].first);
+      _mapv.insert(std::pair<string, Variable*>(symtable[_scanner.tokenValue()].first, v));
+      std::cout << v << '\n';
+      return v;
+      }
+      else{
+        std::cout << l_it->second << '\n';
+        return l_it->second;
+      }
     }else if(token == NUMBER){
       return new Number(_scanner.tokenValue());
     }else if(token == ATOM || token == ATOMSC){
@@ -38,9 +54,6 @@ public:
     else if(token == '['){
       return list();
     }
-
-
-
     return nullptr;
   }
   Operators createOperator(){
@@ -83,51 +96,125 @@ public:
       _u.push(_operators[i]);
     }
   }
-
-  Node* smallTree(){
-      Node* _rightNode = new Node(TERM,_s.top(),nullptr,nullptr);
-      _s.pop();
-      Node* _leftNode = new Node(TERM,_s.top(),nullptr,nullptr);
-      _s.pop();
-      Node* _rootNode = new Node(_u.top(),_t.top(),_leftNode,_rightNode);
-      _t.pop();
-      _u.pop();
-
-      return _rootNode;
+  //
+  // Node* smallTree(){
+  //     Node* _rightNode = new Node(TERM,_s.top(),nullptr,nullptr);
+  //     _s.pop();
+  //     Node* _leftNode = new Node(TERM,_s.top(),nullptr,nullptr);
+  //     _s.pop();
+  //     Node* _rootNode = new Node(_u.top(),_t.top(),_leftNode,_rightNode);
+  //     _t.pop();
+  //     _u.pop();
+  //
+  //     return _rootNode;
+  // }
+  //
+  // Node* mediumTree(){
+  //   Node* _rightNode1 = smallTree();
+  //   Node* _rootNode1 = new Node(_u.top(),_t.top(),nullptr,_rightNode1);
+  //   _t.pop();
+  //   Node* _leftNode1 = smallTree();
+  //   _rootNode1->left = _leftNode1;
+  //   return _rootNode1;
+  // }
+  // Node* bigTree(){
+  //   Node* _rightNode1 = mediumTree();
+  //   Node* _rootNode1 = new Node(_u.top(),_t.top(),nullptr,_rightNode1);
+  //   _t.pop();
+  //   Node* _leftNode1 = smallTree();
+  //   _rootNode1->left = _leftNode1;
+  //   return _rootNode1;
+  // }
+  //
+  // Node* expressionTree(){
+  //   if(_t.size() == 1){
+  //     _RootNode = smallTree();
+  //     return _RootNode;
+  //   }
+  //   else if(_t.size() == 3){
+  //     _RootNode = mediumTree();
+  //     return _RootNode;
+  //   }
+  //   else{
+  //     _RootNode = bigTree();
+  //     return _RootNode;
+  //   }
+  // }
+  Exp* getExpressionTree(){
+    return _expStack.top();
   }
 
-  Node* mediumTree(){
-    Node* _rightNode1 = smallTree();
-    Node* _rootNode1 = new Node(_u.top(),_t.top(),nullptr,_rightNode1);
-    _t.pop();
-    Node* _leftNode1 = smallTree();
-    _rootNode1->left = _leftNode1;
-    return _rootNode1;
-  }
-  Node* bigTree(){
-    Node* _rightNode1 = mediumTree();
-    Node* _rootNode1 = new Node(_u.top(),_t.top(),nullptr,_rightNode1);
-    _t.pop();
-    Node* _leftNode1 = smallTree();
-    _rootNode1->left = _leftNode1;
-    return _rootNode1;
-  }
+  void buildExpression(){
+    disjunctionMatch();
+    restDisjunctionMatch();
+    restDisjunctionMatch();
+    if(createTerm() != nullptr || _currentToken != '.'){
 
-  Node* expressionTree(){
-    if(_t.size() == 1){
-      _RootNode = smallTree();
-      return _RootNode;
+      if(_expStack.empty()){
+        Term* t = _tterms[0];
+        throw string(t->symbol()+" does never get assignment");
+      }
+     else{
+      throw string("Missing token '.'");
     }
-    else if(_t.size() == 3){
-      _RootNode = mediumTree();
-      return _RootNode;
-    }
-    else{
-      _RootNode = bigTree();
-      return _RootNode;
-    }
   }
 
+}
+
+  void restDisjunctionMatch(){
+    std::cout << 1 << '\n';
+    if(_scanner.currentChar() == ';'){
+      std::cout << "/* message */" << '\n';
+      createTerm();
+      disjunctionMatch();
+      Exp *right = _expStack.top();
+      _expStack.pop();
+      Exp *left = _expStack.top();
+      _expStack.pop();
+      _expStack.push(new DisjExp(left,right));
+      _expStack.top()->evaluate();
+      restConjunctionMatch();
+    }
+  }
+  void disjunctionMatch(){
+    conjunctionMatch();
+    restConjunctionMatch();
+  }
+  void restConjunctionMatch() {
+    if(_scanner.currentChar() == ','){
+      createTerm();
+      if(_scanner.currentChar() == '.'){
+        throw string("Unexpected ',' before '.'");
+      }
+      conjunctionMatch();
+      Exp *right = _expStack.top();
+      _expStack.pop();
+      Exp *left = _expStack.top();
+      _expStack.pop();
+      _expStack.push(new ConjExp(left,right));
+      _expStack.top()->evaluate();
+      restConjunctionMatch();
+    }
+  }
+  void conjunctionMatch() {
+    Term* left = createTerm();
+    _tterms.push_back(left);
+    if(createTerm() == nullptr && _currentToken == '='){
+      Term* right = createTerm();
+      _tterms.push_back(right);
+      result += right->symbol();
+      _expStack.push(new MatchExp(left,right));
+      state = _expStack.top()->evaluate();
+
+    }
+    if(_currentToken == ';'){
+      throw string("Unexpected ';' before '.'");
+    }
+    if(_currentToken == ','){
+      throw string("Unexpected ',' before '.'");
+    }
+
+}
 
   Term * structure() {
     Atom structName = Atom(symtable[_scanner.tokenValue()].first);
@@ -147,6 +234,7 @@ public:
   Term * list() {
     int startIndexOfListArgs = _terms.size();
     getArgs();
+    //std::cout << _currentToken << '\n';
     if(_currentToken == ']')
     {
       vector<Term *> args(_terms.begin() + startIndexOfListArgs, _terms.end());
@@ -163,6 +251,13 @@ public:
   vector<Operators > & getOperators() {
     return _operators;
   }
+  string returnResult(){
+    return result;
+  }
+  string getExpressionResult(){
+    return _expStack.top()->getExpressionResult() + ".";
+  }
+
 private:
   FRIEND_TEST(ParserTest, createArgs);
   FRIEND_TEST(ParserTest,ListOfTermsEmpty);
@@ -176,6 +271,12 @@ private:
       _terms.push_back(term);
       while((_currentToken = _scanner.nextToken()) == ',') {
         _terms.push_back(createTerm());
+        //std::cout << _scanner.currentChar() << '\n';
+        if(_scanner.currentChar() == ' '){
+          _scanner.skipLeadingWhiteSpace();
+          if(_scanner.currentChar() == ';')
+           throw string("Unbalanced operator");
+        }
       }
     }
   }
@@ -192,6 +293,16 @@ private:
   stack <Term*> _s;
   stack <Term*> _t;
   stack <Operators> _u;
+
+  stack<Exp*> _expStack;
+
+  vector <Term*> _tterms;
+  string result="";
+  bool state;
+
+  map<string, Variable*> _mapv;
+  map<string ,Variable*>::iterator l_it;
+
 
 };
 #endif

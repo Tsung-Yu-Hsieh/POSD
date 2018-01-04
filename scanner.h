@@ -27,7 +27,7 @@ public:
         string s = extractAtom();
         processToken<ATOM>(s);
         return ATOM;
-      } else if (isSpecialCh(currentChar())) {
+      } else if (isSpecialCh(currentChar()) && position() < buffer.length() - 1) {
         string s = extractAtomSC();
         processToken<ATOMSC>(s);
         return ATOMSC;
@@ -54,6 +54,9 @@ public:
   char currentChar() {
     return buffer[pos];
   }
+  char currentChar1(){
+    return buffer[pos-3];
+  }
 
 
 
@@ -66,7 +69,12 @@ public:
 
   string extractAtom() {
     int posBegin = position();
-    for (;isalnum(buffer[pos]); ++pos);
+    for (;isalnum(buffer[pos]) || buffer[pos] == '_'; ++pos);
+    //   if(buffer[p = pos+1] == '_'){
+    //       pos++;
+    //       for (;isalnum(buffer[pos]); ++pos);
+    //     }
+    // }
     return buffer.substr(posBegin, pos-posBegin);
   }
 
@@ -90,6 +98,7 @@ private:
   string buffer;
   int pos;
   int _tokenValue;
+  int p;
 
 private:
   // case-based populating symtable and setting _tokenValue

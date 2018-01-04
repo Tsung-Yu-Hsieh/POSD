@@ -7,8 +7,7 @@ Iterator<Term*> * Term::createIterator(){
   return new NullIterator(this);
 }
 bool Term::match(Term & a){
-  if (typeid(a) ==  typeid(Variable))
+  if (a.getVariable() != nullptr)
     return a.match(*this);
-  else
-    return symbol() == a.symbol();
+  return symbol() == a.symbol();
 }
