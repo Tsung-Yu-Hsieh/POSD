@@ -41,6 +41,7 @@ int main( int argc , char **argv )
 {
   string input;
   string finalInput;
+  cout << "Welcome to SWI-Prolog (threaded, 64 bits, version 7.6.3)" << '\n';
   cout << "?- ";
     while(getline (cin,input)){
         if(input=="halt."){
