@@ -12,7 +12,6 @@ using std::string;
 #include "struct.h"
 #include "list.h"
 #include "number.h"
-#include "utParser.h"
 #include "node.h"
 #include <stack>
 #include "exp.h"
@@ -96,7 +95,7 @@ public:
       _u.push(_operators[i]);
     }
   }
-  
+
   Node* smallTree(){
       Node* _rightNode = new Node(TERM,_s.top(),nullptr,nullptr);
       _s.pop();
