@@ -1,5 +1,6 @@
 all: hw8
 
+shell: mainScanner.o Number.o Atom.o Variable.o List.o Struct.o Node.o
 hw8: mainScanner.o Number.o Atom.o Variable.o List.o Struct.o Node.o
 
 ifeq (${OS}, Windows_NT)
@@ -33,5 +34,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw8
+	rm -f *.o hw8 shell
 endif
