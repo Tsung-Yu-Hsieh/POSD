@@ -220,7 +220,7 @@ public:
     Atom structName = Atom(symtable[_scanner.tokenValue()].first);
     int startIndexOfStructArgs = _terms.size();
     _scanner.nextToken();
-    getArgs();
+    createTerms();
     if(_currentToken == ')')
     {
       vector<Term *> args(_terms.begin() + startIndexOfStructArgs, _terms.end());
@@ -233,7 +233,7 @@ public:
 
   Term * list() {
     int startIndexOfListArgs = _terms.size();
-    getArgs();
+    createTerms();
     //std::cout << _currentToken << '\n';
     if(_currentToken == ']')
     {
@@ -264,7 +264,7 @@ private:
   FRIEND_TEST(ParserTest,listofTermsTwoNumber);
   FRIEND_TEST(ParserTest, createTerm_nestedStruct3);
 
-  void getArgs() {
+  void createTerms() {
     Term* term = createTerm();
     if(term!=nullptr)
     {
