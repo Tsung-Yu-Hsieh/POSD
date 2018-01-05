@@ -33,11 +33,9 @@ public:
       if(l_it == _mapv.end()) {
         Variable * v = new Variable(symtable[_scanner.tokenValue()].first);
       _mapv.insert(std::pair<string, Variable*>(symtable[_scanner.tokenValue()].first, v));
-      std::cout << v << '\n';
       return v;
       }
       else{
-        std::cout << l_it->second << '\n';
         return l_it->second;
       }
     }else if(token == NUMBER){
@@ -161,9 +159,7 @@ public:
 }
 
   void restDisjunctionMatch(){
-    std::cout << 1 << '\n';
     if(_scanner.currentChar() == ';'){
-      std::cout << "/* message */" << '\n';
       createTerm();
       disjunctionMatch();
       Exp *right = _expStack.top();
@@ -233,7 +229,6 @@ public:
   Term * list() {
     int startIndexOfListArgs = _terms.size();
     createTerms();
-    //std::cout << _currentToken << '\n';
     if(_currentToken == ']')
     {
       vector<Term *> args(_terms.begin() + startIndexOfListArgs, _terms.end());
@@ -270,7 +265,6 @@ private:
       _terms.push_back(term);
       while((_currentToken = _scanner.nextToken()) == ',') {
         _terms.push_back(createTerm());
-        //std::cout << _scanner.currentChar() << '\n';
         if(_scanner.currentChar() == ' '){
           _scanner.skipLeadingWhiteSpace();
           if(_scanner.currentChar() == ';')

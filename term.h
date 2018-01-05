@@ -5,7 +5,7 @@
 #include <sstream>
 using std::string;
 
-template <class T>
+
 class Iterator;
 class Struct;
 class Variable;
@@ -16,7 +16,7 @@ public:
   virtual string symbol() const {return _symbol;}
   virtual string value() const {return symbol();}
   virtual bool match(Term & a);
-  virtual Iterator<Term*> * createIterator();
+  virtual Iterator* createIterator();
   virtual string getName() const{return "Term";}
 
   virtual Struct* getStruct(){
