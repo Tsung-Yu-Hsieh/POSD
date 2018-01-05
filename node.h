@@ -10,7 +10,9 @@ public:
   Operators payload;
   Node(Operators op, Term *t, Node *l, Node *r):payload(op), term(t), left(l), right(r) {}
 
-  bool evaluate();
+  bool evaluate(){
+    
+  }
 
 
 
