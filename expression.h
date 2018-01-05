@@ -287,7 +287,7 @@ TEST(Shell, disjunctionMatching6) {
 }
 
 
-TEST(Shell, exceptionMissingPeriodToken1) {
+TEST(Shell, exceptionMissingPeriodToken1){
   Scanner s("X=1");
   Parser p(s);
   try {
