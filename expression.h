@@ -1,9 +1,7 @@
-/**
- *
- * Here are some examples for exception handling,
- * the actual testing way is base on your implementation.
- *
- */
+#include "atom.h"
+#include "variable.h"
+#include "exp.h"
+#include "parser.h"
 
 TEST(Shell, varMatchAtomSuc) {
   Scanner s("FILCO=awesome.");

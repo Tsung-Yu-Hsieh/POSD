@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 // #include "utScanner.h"
-#include "utParser.h"
+//#include "utParser.h"
 //#include "utIterator.h"
 // #include "utAtom.h"
 // #include "utStruct.h"
-#include "utExp.h"
+//#include "utExp.h"
 // #include "utList.h"
 #include "exception.h"
 #include "expression.h"
