@@ -14,6 +14,9 @@ public:
   Scanner (string in=""):buffer(in), pos(0), _tokenValue(NONE){}
   void setInput(string in) {buffer = in;}
 
+  string bufferReturn() {
+    return buffer;
+  }
   int nextToken() {
       if (skipLeadingWhiteSpace() >= buffer.length())
         return EOS;
@@ -46,13 +49,16 @@ public:
   }
 
   int position() const {return pos;}
-
+  void backPosition(int i) { pos = pos-i;}
+  void addPosition(int i){ pos = pos+i;}
   char currentChar() {
     return buffer[pos];
   }
   char currentChar1(){
     return buffer[pos-3];
   }
+
+
 
   // extractX: extract X and set position right after X
   int extractNumber() {
@@ -64,6 +70,11 @@ public:
   string extractAtom() {
     int posBegin = position();
     for (;isalnum(buffer[pos]) || buffer[pos] == '_'; ++pos);
+    //   if(buffer[p = pos+1] == '_'){
+    //       pos++;
+    //       for (;isalnum(buffer[pos]); ++pos);
+    //     }
+    // }
     return buffer.substr(posBegin, pos-posBegin);
   }
 
@@ -87,6 +98,7 @@ private:
   string buffer;
   int pos;
   int _tokenValue;
+  int p;
 
 private:
   // case-based populating symtable and setting _tokenValue

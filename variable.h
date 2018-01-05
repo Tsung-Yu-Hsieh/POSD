@@ -2,31 +2,18 @@
 #define VARIABLE_H
 
 #include <string>
-#include "atom.h"
+#include "term.h"
 using std::string;
 
 class Variable : public Term {
 public:
-  Variable(string s):Term(s), _instance(0) {
+  Variable(string s):Term(s), _instance(0){}
+  string value() const;
+  bool match( Term & term );
 
-  }
+  string getName() const;
 
-  string value() const {
-    if (_instance)
-      return _instance->value();
-    else
-      return Term::value();
-  }
-
-  bool match( Term & term ) {
-    if (_instance != nullptr)
-      return _instance->match(term);
-    if (&term != this)
-      _instance = &term;
-    return true;
-  }
-
-  Variable* getVariable() {
+  Variable* getVariable(){
     return this;
   }
 private:
